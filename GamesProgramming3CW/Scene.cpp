@@ -167,6 +167,20 @@ void Scene::Update(float deltaTime)
 	{
 		(*iter)->Update(deltaTime);
 	}
+
+	//Sphere Collisions
+	for (int i = 0; i != gameObjects.size(); i++)
+	{
+		if (gameObjects.at(i)->GetCollider() == NULL) continue;
+
+		for (int j = 0; j != gameObjects.size(); j++)
+		{
+			if (i == j || gameObjects.at(j)->GetCollider() == NULL) continue;
+
+			if (gameObjects.at(i)->GetCollider()->isOverlap(gameObjects.at(j)->GetCollider()))
+				gameObjects.at(i)->GetCollider()->onOverLap(gameObjects.at(j));
+		}
+	}
 }
 
 void Scene::VisibilityCheck()

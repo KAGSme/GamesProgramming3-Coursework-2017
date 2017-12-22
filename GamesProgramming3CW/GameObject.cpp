@@ -25,6 +25,8 @@ void GameObject::Begin()
 
 void GameObject::Update(float deltaTime)
 {
+	if (_col != NULL)_col->update(_transform->GetPosition());
+
 	for (auto it = components.begin(); it != components.end(); it++) {
 		(*(it->second)).Update(deltaTime);
 	}

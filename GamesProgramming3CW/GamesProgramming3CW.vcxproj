@@ -129,6 +129,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraBehaviour.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="CommonXml.h" />
     <ClInclude Include="CubeMap.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputActions.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MoveGameObjectBehaviour.h" />
     <ClInclude Include="PostProcessing.h" />
