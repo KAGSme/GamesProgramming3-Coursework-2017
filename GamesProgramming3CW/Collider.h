@@ -8,12 +8,17 @@ private:
 public:
 	float radius = 0;
 
+	SphereCol(float r)
+	{
+		radius = r;
+	}
+
 	void update(vec3 newPosition) { position = newPosition; };
 
 	bool isOverlap(SphereCol* other)
 	{
 		vec3 delta = position - other->position;
-		float distance = delta.length();
+		float distance = glm::length(delta);
 		
 		if (distance < radius + other->radius)
 		{
@@ -21,7 +26,7 @@ public:
 		}
 		else return false;
 	}
-	__event void onOverLap(GameObject* owner);
+	__event void onOverlap(GameObject* owner);
 };
 
 #endif // !_COLLIDERS_H

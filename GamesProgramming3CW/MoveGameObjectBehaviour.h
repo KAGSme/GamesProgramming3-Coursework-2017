@@ -9,6 +9,7 @@ class MoveGameObjectBehaviour : public BaseComponent
 public:
 	MoveGameObjectBehaviour();
 	~MoveGameObjectBehaviour();
+	void OnBegin();
 	void Update(float deltaTime);
 };
 #endif

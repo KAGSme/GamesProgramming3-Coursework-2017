@@ -13,6 +13,11 @@ MoveGameObjectBehaviour::~MoveGameObjectBehaviour()
 
 }
 
+void MoveGameObjectBehaviour::OnBegin()
+{
+	pGameObject->AttachCollider(new SphereCol(100.0f));
+}
+
 void MoveGameObjectBehaviour::Update(float deltaTime)
 {
 	if (Input::GetKey(SDLK_r))

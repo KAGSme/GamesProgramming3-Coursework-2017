@@ -15,6 +15,8 @@ public:
 	void OnBegin();
 	void Update(float DeltaTime);
 	void SetSceneTargetCameraToThis();
+
+	void OnOverlap(GameObject * other);
 };
 
 #endif

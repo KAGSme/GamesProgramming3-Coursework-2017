@@ -178,7 +178,9 @@ void Scene::Update(float deltaTime)
 			if (i == j || gameObjects.at(j)->GetCollider() == NULL) continue;
 
 			if (gameObjects.at(i)->GetCollider()->isOverlap(gameObjects.at(j)->GetCollider()))
-				gameObjects.at(i)->GetCollider()->onOverLap(gameObjects.at(j));
+			{
+				gameObjects.at(i)->GetCollider()->onOverlap(gameObjects.at(j));
+			}
 		}
 	}
 }
