@@ -1,0 +1,46 @@
+<Scene name="Water Test">
+    <ModelList>
+		<Model>Plane.FBX</Model>
+    </ModelList>
+	<TextureList>
+		<Texture>WaterPlain_COLOR.png</Texture>
+		<Texture>WaterPlain_NRM.png</Texture>
+		<Texture>WaterPlain_SPEC.png</Texture>
+	</TextureList>
+	<ShaderList>
+		<Shader vert="diffuseNormalSpecMapVS.glsl" frag="diffuseNormalSpecMapFS.glsl">DiffuseSpec</Shader>
+		<Shader vert="waterVS.glsl" frag="waterFS.glsl">Water</Shader>
+	</ShaderList>
+	<FontList>
+		<Font>OratorStd.otf</Font>
+	</FontList>
+	<GameObjectList>		
+		<GameObject name="SceneManagementObject" hasRenderer="false" texture="" model="" shader="" 
+			posx="0" posy="0" posz="0" 
+			rotx="0" roty="0" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="TimeDay">
+					<Attributes font="OratorStd.otf"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="CameraBehaviourObject" hasRenderer="false" texture="" model="" shader="" 
+			posx="15" posy="10" posz="0" 
+			rotx="0" roty="0" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="CameraBehaviour">
+					<Attributes speed="20"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Water" hasRenderer="true" texture="WaterPlain_COLOR.png,WaterPlain_NRM.png,WaterPlain_SPEC.png" model="Plane.FBX" shader="Water" 
+			posx="0" posy="0" posz="100" rotx="-90" roty="0" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>	
+				<Component ID="WaterComp"/>
+			</ComponentList>
+		</GameObject>	
+	</GameObjectList>
+</Scene>

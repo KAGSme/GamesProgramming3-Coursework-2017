@@ -1,0 +1,166 @@
+<Scene name="Main">
+    <ModelList>
+		<Model>utah-teapot.fbx</Model>
+		<Model>3d-model.fbx</Model>
+		<Model>NormalMapTest.FBX</Model>
+		<Model>NormalMapTest2.FBX</Model>
+		<Model>creature1.fbx</Model>
+		<Model>sphere.fbx</Model>
+		<Model>Tree.fbx</Model>
+		<Model>Rock1.fbx</Model>
+		<Model>Rock2.fbx</Model>
+		<Model>Rock3.fbx</Model>
+		<Model>Rock4.fbx</Model>
+		<Model>Rock5.fbx</Model>
+		<Model>Fern1.fbx</Model>
+		<Model>Fern2.fbx</Model>
+		<Model>Plane.FBX</Model>
+		<Model>arrow.fbx</Model>
+    </ModelList>
+	<TextureList>
+		<Texture>texture.png</Texture>
+		<Texture>grass.png</Texture>
+		<Texture>ground.jpg</Texture>
+		<Texture>rock.jpg</Texture>
+		<Texture>BrickFacade.jpg</Texture>	
+		<Texture>BrickFacade_normal.jpg</Texture>	
+		<Texture>creature1Albedo.png</Texture>
+		<Texture>creature1Normal.png</Texture>
+		<Texture>creature1Specular.png</Texture>
+		<Texture>TreeBark.png</Texture>
+		<Texture>TreeLeaves.png</Texture>
+		<Texture>Rock1.jpg</Texture>
+		<Texture>Rock2.jpg</Texture>
+		<Texture>Rock3.jpg</Texture>
+		<Texture>Rock4.jpg</Texture>
+		<Texture>Rock5.jpg</Texture>
+		<Texture>Fern1.png</Texture>
+		<Texture>Fern2.png</Texture>
+		<Texture>WaterPlain_COLOR.png</Texture>
+		<Texture>WaterPlain_NRM.png</Texture>
+		<Texture>WaterPlain_SPEC.png</Texture>
+	</TextureList>
+	<ShaderList>
+		<Shader vert="specularVS.glsl" frag="specularFS.glsl">Specular</Shader>
+		<Shader vert="normalMappingVS.glsl" frag="normalMappingFS.glsl">NormalMapping</Shader>
+		<Shader vert="diffuseNormalSpecMapVS.glsl" frag="diffuseNormalSpecMapFS.glsl">diffuseNormalSpecMap</Shader>
+		<Shader vert="postProcVS.glsl" frag="colorCorr1FS.glsl">PostProcess1</Shader>
+		<Shader vert="postProcVS.glsl" frag="colorCorr2FS.glsl">PostProcess2</Shader>
+		<Shader vert="terrainVS.glsl" frag="terrainFS.glsl">Terrain</Shader>
+		<Shader vert="pointLightVS.glsl" frag="pointLightFS.glsl">PointLight</Shader>
+		<Shader vert="skyboxVS.glsl" frag="skyboxFS.glsl">SkyBox</Shader>
+		<Shader vert="treeVS.glsl" frag="treeFS.glsl">Tree</Shader>
+		<Shader vert="rockVS.glsl" frag="rockFS.glsl">Rock</Shader>
+		<Shader vert="parallaxMappingVS.glsl" frag="parallaxMappingFS.glsl">ParallaxMapping</Shader>
+		<Shader vert="waterVS.glsl" frag="waterFS.glsl">Water</Shader>
+		<Shader vert="simpleDepthVS.glsl" frag="simpleDepthFS.glsl">SimpleDepth</Shader>
+	</ShaderList>
+	<FontList>
+		<Font>OratorStd.otf</Font>
+	</FontList>
+	<GameObjectList>	
+		<GameObject name="Sun" hasRenderer="false" texture="texture.png" model="" shader="Specular" 
+			posx="0" posy="100" posz="0" rotx="90" roty="0" rotz="0" 
+			scalex="0.5" scaley="0.5" scalez="2">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="1,1,1,1" state="directional"/>
+				</Component>
+			</ComponentList>
+		</GameObject>	
+		<GameObject name="SceneManagementObject" hasRenderer="true" texture="" model="" shader="" 
+			posx="0" posy="0" posz="0" 
+			rotx="0" roty="0" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="TimeDay">
+					<Attributes font="OratorStd.otf"/>
+				</Component>
+				<Component ID="Skybox">
+					<Attributes texture1="skyTexture" texture2="skyNightTexture" isTimeDay="true"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="CameraBehaviourObject" hasRenderer="false" texture="" model="" shader="" 
+			posx="15" posy="10" posz="0" 
+			rotx="360" roty="75" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="CameraBehaviour">
+					<Attributes speed="20"/>
+				</Component>
+				<Component ID="CameraComponent">
+					<Attributes/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Tea Pot - Big" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
+			posx="15" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
+			scalex="0.6" scaley="0.6" scalez="0.6">
+			<ComponentList>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Tea Pot - Small" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
+			posx="-10" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
+			scalex="0.2" scaley="0.2" scalez="0.2">
+			<ComponentList>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Tea Pot - Small2" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
+			posx="15" posy="10" posz="0" rotx="0" roty="0" rotz="0" 
+			scalex="0.2" scaley="0.2" scalez="0.2">
+			<ComponentList>
+				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Light1" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="0" posy="0" posz="0" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0,0,1,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Light2" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="50" posy="0" posz="50" rotx="0" roty="0" rotz="0" 
+			scalex="30" scaley="30" scalez="30">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0,1,0,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Light3" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="100" posy="0" posz="100" rotx="0" roty="0" rotz="0" 
+			scalex="40" scaley="40" scalez="40">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="1,0,0,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="TestModel" hasRenderer="true" texture="creature1Albedo.png,creature1Normal.png,creature1Specular.png" model="creature1.fbx" shader="diffuseNormalSpecMap" 
+			posx="60" posy="30" posz="-30" rotx="0" roty="0" rotz="0" 
+			scalex="0.1" scaley="0.1" scalez="0.1">
+			<ComponentList>		
+				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>		
+		<GameObject name="Water" hasRenderer="true" texture="WaterPlain_COLOR.png,WaterPlain_NRM.png,WaterPlain_SPEC.png" model="Plane.FBX" shader="Water" 
+			posx="0" posy="0" posz="100" rotx="-90" roty="0" rotz="0" 
+			scalex="10" scaley="10" scalez="10">
+			<ComponentList>	
+				<Component ID="WaterComp"/>
+			</ComponentList>
+		</GameObject>	
+		<GameObject name="Terrain" hasRenderer="true" texture="grass.png,ground.jpg,rock.jpg" model="Terrain" shader="Terrain" 
+			posx="0" posy="0" posz="0" rotx="0" roty="0" rotz="0" scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="Terrain">
+					<Attributes texture="heightmap.png" scalex="500" scaley="10" scalez="500"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+	</GameObjectList>
+</Scene>

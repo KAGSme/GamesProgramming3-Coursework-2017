@@ -1,0 +1,14 @@
+<Input>
+	<Actions>
+		<IA title = "Debug" keyboard = "k,p" gamepad = "gamepad_a"/>
+		<IA title = "SpeedBoost" keyboard = "c" gamepad = "gamepad_a"/>
+		<IA title = "SpeedBoostToggle" keyboard = "x" gamepad = "gamepad_ls"/>
+	</Actions>
+	<Axis>
+		<IA title = "Vertical" keyboardPositive = "w" keyboardNegative = "s" gamepadPositive = "gamepad_up" gamepadNegative = "gamepad_down" gamepadAnalog = "gamepad_LeftStickY"/>
+		<IA title = "Horizontal" keyboardPositive = "d" keyboardNegative = "a" gamepadPositive = "gamepad_right" gamepadNegative = "gamepad_left" gamepadAnalog = "gamepad_LeftStickX"/>
+		<IA title = "AimVertical" keyboardPositive = "" keyboardNegative = "" gamepadPositive = "" gamepadNegative = "" gamepadAnalog = "gamepad_RightStickY"/>
+		<IA title = "AimHorizontal" keyboardPositive = "" keyboardNegative = "" gamepadPositive = "" gamepadNegative = "" gamepadAnalog = "gamepad_RightStickX"/>
+		<IA title = "Hover" keyboardPositive = "e" keyboardNegative = "q" gamepadPositive = "gamepad_rb" gamepadNegative = "gamepad_lb" gamepadAnalog = ""/>
+	</Axis>
+</Input>

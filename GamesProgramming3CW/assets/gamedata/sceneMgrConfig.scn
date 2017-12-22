@@ -1,0 +1,7 @@
+<SceneManagerConfiguration>
+    <SceneDirectories>
+    	<Scene order="1">WaterTest.scn</Scene>
+        <Scene order="2">Main.scn</Scene>
+		<Scene order="0">ShadowLightingTest.scn</Scene>
+    </SceneDirectories>
+</SceneManagerConfiguration>
