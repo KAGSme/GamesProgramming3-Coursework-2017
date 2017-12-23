@@ -11,8 +11,9 @@ in vec4 shadowCoordsOut;
 
 uniform vec4 diffuseMaterialColor;
 uniform vec3 lightDirection;
+uniform float specularPower;
 
-uniform sampler2D texture1;
+uniform sampler2D texture1; //shadowMap
 
 
 float ShadowCalculation(vec4 fragPosLightSpace)
@@ -49,6 +50,6 @@ void main()
 
 	Position = FragPos;
 	FragColor.xyz = diffuseMaterialColor.xyz;
-	FragColor.a = 1;
+	FragColor.a = (1 * specularPower)/100;
 	Normal = vec4((worldNormal * 0.5 + 0.5).xyz, visibility);
 }

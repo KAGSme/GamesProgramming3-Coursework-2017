@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Transform.h"
 #include "Collider.h"
+#include "Material.h"
 #include <map>
 
 class GameObject
@@ -19,6 +20,7 @@ private:
 	string name = "default";
 	Transform* _transform;
 	SphereCol* _col;
+	Material* _material = new Material();
 
 public:
 	GameObject();
@@ -31,6 +33,7 @@ public:
 	Light* GetLight() { return light; }
 	Transform* GetTransform() { return _transform; }
 	SphereCol* GetCollider() { return _col; }
+	Material* GetMaterial() { return _material; }
 	void AttachCollider(SphereCol* newCol) { _col = newCol; }
 
 	void Begin();

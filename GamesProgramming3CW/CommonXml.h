@@ -11,4 +11,5 @@ public:
 	static void LoadXML(string filePath, XMLDocument* xml);
 	static Uint8 GetGamepadButtonFromInputXml(string xmlInput);
 	static Uint8 GetGamepadAxisFromInputXml(string xmlInput);
+	static vec4 GetVec4FromString(string xmlInput);
 };

@@ -59,3 +59,11 @@ Uint8 CommonXml::GetGamepadAxisFromInputXml(string xmlInput)
 		return SDL_CONTROLLER_AXIS_INVALID;
 	else return gamepadStrings.at(xmlInput);
 }
+
+vec4 CommonXml::GetVec4FromString(string xmlInput)
+{
+	vector<string> vector = split(xmlInput, ',');
+	if (vector.size() > 4) return vec4(-1);
+
+	return vec4(stof(vector.at(0)), stof(vector.at(1)), stof(vector.at(2)), stof(vector.at(3)));
+}

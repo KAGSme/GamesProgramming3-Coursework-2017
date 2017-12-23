@@ -97,18 +97,21 @@
 		<GameObject name="Tea Pot - Big" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="15" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
 			scalex="0.6" scaley="0.6" scalez="0.6">
+			<Material diffuse="1,0,0,1" specularPower="30"/>
 			<ComponentList>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="Tea Pot - Small" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="-10" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
 			scalex="0.2" scaley="0.2" scalez="0.2">
+			<Material diffuse="0,0.8,0.5,1" specularPower="30"/>
 			<ComponentList>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="Tea Pot - Small2" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="15" posy="10" posz="0" rotx="0" roty="0" rotz="0" 
 			scalex="0.2" scaley="0.2" scalez="0.2">
+			<Material diffuse="0.5,0.8,0,1" specularPower="30"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>
@@ -141,6 +144,7 @@
 		<GameObject name="Floor" hasRenderer="true" texture="texture.png" model="Plane.FBX" shader="Specular"  
 			posx="0" posy="1" posz="100" rotx="-90" roty="0" rotz="0" 
 			scalex="10" scaley="10" scalez="10">
+			<Material diffuse="0,0.6,1,1" specularPower="80"/>
 			<ComponentList>	
 			</ComponentList>
 		</GameObject>	

@@ -193,7 +193,14 @@ XMLError SceneManager::LoadScene(int sceneOrder, Scene* currentScene)
 		else 
 			go = currentScene->AddGameObject(tName, tPos, tRot, tScale);
 
-		XMLElement *gameObjectElement = sceneItem->FirstChildElement("ComponentList");
+		XMLElement *gameObjectElement = sceneItem->FirstChildElement("Material");
+		if (gameObjectElement) 
+		{
+			go->GetMaterial()->diffuseColor = CommonXml::GetVec4FromString(gameObjectElement->Attribute("diffuse"));
+			go->GetMaterial()->specPower = stof(gameObjectElement->Attribute("specularPower"));
+		}
+
+		gameObjectElement = sceneItem->FirstChildElement("ComponentList");
 		if (!gameObjectElement)
 			return XML_ERROR_PARSING_ELEMENT;
 

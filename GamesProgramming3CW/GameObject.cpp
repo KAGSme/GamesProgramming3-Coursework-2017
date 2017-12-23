@@ -49,32 +49,12 @@ void GameObject::Render(Camera *camera)
 	mat4 shadowDepthMVP = Game::currentScene->GetMainDirLight()->GetLight()->GetShadowMapDepthVP();   
 	program->SetUniform("shadowDepthBiasMVP", value_ptr(shadowDepthMVP));
 
-	vec3 camPos = camera->GetPos(); 
-	program->SetUniform("cameraPosition", &camPos);
-
 	vec3 lightDir = Game::currentScene->GetMainDirLight()->GetLight()->GetLightDirection();;
 	program->SetUniform("lightDirection", &lightDir);
-	     
-	vec4 ambMatColor(1, 0, 0, 1);
-	program->SetUniform("ambientMaterialColor", &ambMatColor);
 
-	vec4 difMatColor(1, 0, 0, 1); 
-	program->SetUniform("diffuseMaterialColor", &difMatColor);
+	program->SetUniform("diffuseMaterialColor", &_material->diffuseColor);
 
-	vec4 specMatColor(1, 1, 1, 1);
-	program->SetUniform("specularMaterialColor", &specMatColor);
-
-	float power = 25;
-	program->SetUniform("specularPower", &power);
-
-	vec4 ambLightColor = Game::currentScene->GetMainDirLight()->GetLight()->GetColor() / 2.f;
-	program->SetUniform("ambientLightColor", &ambLightColor); 
-
-	vec4 difLightColor = Game::currentScene->GetMainDirLight()->GetLight()->GetColor();
-	program->SetUniform("diffuseLightColor", &difLightColor);
-
-	vec4 specLightColor(1, 1, 1, 1); 
-	program->SetUniform("specularLightColor", &specLightColor);
+	program->SetUniform("specularPower", &_material->specPower);
 
 	float heightScale = 5.0f;
 	program->SetUniform("heightScale", &heightScale);

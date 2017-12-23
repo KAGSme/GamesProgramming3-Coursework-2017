@@ -12,9 +12,11 @@ in vec4 shadowCoordsOut;
 uniform sampler2D texture0; //albedo
 uniform sampler2D texture1; //normal
 uniform sampler2D texture2; //specular
-uniform sampler2D texture3;
+uniform sampler2D texture3; //shadowMap
 
 uniform vec3 lightDirection;
+uniform float specularPower;
+
 vec3 worldNormal;
 
 float ShadowCalculation(vec4 fragPosLightSpace)
@@ -55,7 +57,7 @@ void main()
 
 	FragColor.rgb = texture(texture0, vertexTexCoordsOut).rgb;
 	
-	FragColor.a = texture(texture2, vertexTexCoordsOut).r;
+	FragColor.a = (texture(texture2, vertexTexCoordsOut).r * specularPower) /100; //specular
 	
 	Normal = vec4(worldNormal, visibility);
 	

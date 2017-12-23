@@ -225,8 +225,5 @@ void DefRenderer::RenderGather()
 	vec3 specLightColor(1, 1, 1); 
 	program->SetUniform("specularLightColor", &specLightColor); 
 
-	float power = 25;
-	program->SetUniform("specularPower", &power);
-
 	renderer->Render();
 } 
