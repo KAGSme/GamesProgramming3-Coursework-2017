@@ -5,7 +5,7 @@ in vec2 vertexUV;
 uniform sampler2D texture0; //albedo
 uniform sampler2D texture1; //normals
 uniform sampler2D texture2; //position
-uniform sampler2D texture3; //depth
+uniform sampler2D texture3; //Light
 
 uniform vec3 lightDir;
 uniform vec3 lightColor;
@@ -21,6 +21,7 @@ void main()
 	vec3 FragPos = texture(texture2, vertexUV).rgb;
 	vec3 albedo = texture(texture0, vertexUV).rgb;
 	vec3 normal = texture(texture1, vertexUV).rgb * 2 - 1;
+	vec3 otherLights = texture(texture3, vertexUV).rgb;
 	float shadowVisibility = texture(texture1, vertexUV).a;
 	float spec = texture(texture0, vertexUV).a;
 	float shine = texture(texture2, vertexUV).a;
@@ -36,7 +37,8 @@ void main()
 	
 	else finalColor = (ambientLightColor * albedo) + 
 	(albedo * diffuseTerm * lightColor * (1 - shadowVisibility)) + 
-	(spec * specularTerm * specularLightColor * (1 - shadowVisibility));
+	(spec * specularTerm * specularLightColor * (1 - shadowVisibility))
+	+ otherLights;
 	
 	FragColor = vec4(finalColor, 1);
 }

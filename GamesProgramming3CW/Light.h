@@ -43,6 +43,7 @@ public:
 	void DirShadowMapRenderStart();
 	void DirShadowMapRenderEnd();
 
+	void OnBegin();
 	void Update(float deltaTime);
 };
 

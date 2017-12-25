@@ -131,7 +131,7 @@
 		</GameObject>
 		<GameObject name="Light2" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
 			posx="50" posy="0" posz="50" rotx="0" roty="0" rotz="0" 
-			scalex="30" scaley="30" scalez="30">
+			scalex="60" scaley="60" scalez="60">
 			<ComponentList>
 				<Component ID="Light">
 					<Attributes color="0,1,0,1" state="point"/>
@@ -140,7 +140,7 @@
 		</GameObject>
 		<GameObject name="Light3" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
 			posx="100" posy="0" posz="100" rotx="0" roty="0" rotz="0" 
-			scalex="20" scaley="20" scalez="20">
+			scalex="60" scaley="60" scalez="60">
 			<ComponentList>
 				<Component ID="Light">
 					<Attributes color="1,0,0,1" state="point"/>
@@ -157,7 +157,7 @@
 		<GameObject name="Floor" hasRenderer="true" texture="texture.png" model="Plane.FBX" shader="Specular"  
 			posx="0" posy="1" posz="100" rotx="-90" roty="0" rotz="0" 
 			scalex="10" scaley="10" scalez="10">
-			<Material diffuse="0,0.6,1,1" specularPower="32"/>
+			<Material diffuse="0,0.6,0.5,1" specularPower="2"/>
 			<ComponentList>	
 			</ComponentList>
 		</GameObject>	

@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Game.h"
+#include "DefRenderer.h"
 
 Light::Light(vec4 color)
 {
@@ -68,6 +69,16 @@ void Light::DirShadowMapRenderEnd()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, SCREEN_W, SCREEN_H);
+}
+
+void Light::OnBegin()
+{
+	if (_state == E_LightState::POINT)
+	{
+		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(0));
+		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(1));
+		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(2));
+	}
 }
 
 void Light::Update(float deltaTime)

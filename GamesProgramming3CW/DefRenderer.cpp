@@ -143,6 +143,9 @@ void DefRenderer::EndGeomGather()
 
 void DefRenderer::BeginLightGather()
 {
+	GLenum bufferToDraw[] = { GL_COLOR_ATTACHMENT3 };
+	glDrawBuffers(1, bufferToDraw);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glDepthMask(GL_FALSE); //lights don't write to depth
 	glEnable(GL_STENCIL_TEST);
 }
@@ -191,7 +194,7 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
 	//writing only on top of the colors from geometry pass
-	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT3);
 	
 	glDisable(GL_DEPTH_TEST);
 	
@@ -204,18 +207,24 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 	glCullFace(GL_FRONT);
 
 	r->Ready();
+
 	mat4 model = r->GetParentGO()->GetTransform()->GetTransformationMatrix();
 	mat4 mvp = cam->Get() * model;
 	r->GetProgram()->SetUniform("Model", value_ptr(model));
 	r->GetProgram()->SetUniform("MVP", value_ptr(mvp));
 	vec4 deviceCenter = vec4(mvp * vec4(0, 0, 0, 1)); //center in device coords
-	vec3 center(deviceCenter.x, deviceCenter.y, deviceCenter.z);
+
+	vec3 center(r->GetParentGO()->GetTransform()->GetPosition());
 	r->GetProgram()->SetUniform("Center", &center);
 	Light *l = r->GetParentGO()->GetLight();
 	float intensity = l->GetIntensity();
 	r->GetProgram()->SetUniform("Intensity", &intensity);
 	vec4 color = l->GetColor();
 	r->GetProgram()->SetUniform("Color", &color);
+	float maxDistance = r->GetParentGO()->GetTransform()->GetScale().x;
+	r->GetProgram()->SetUniform("MaxDistance", &maxDistance);
+	r->GetProgram()->SetUniform("cameraPosition", &cam->GetParentTransform()->GetPosition());
+
 	r->Render();
 
 	glCullFace(GL_BACK);
