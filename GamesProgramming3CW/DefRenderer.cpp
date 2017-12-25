@@ -4,8 +4,7 @@
 
 GLuint DefRenderer::fbo;
 GLuint DefRenderer::rbo;
-Texture* DefRenderer::textures[3];
-Texture* DefRenderer::depthTexture;
+Texture* DefRenderer::textures[4];
 Model* DefRenderer::model;
 ShaderProgram* DefRenderer::program;
 ShaderProgram* DefRenderer::nullProg;
@@ -14,7 +13,7 @@ vec3 DefRenderer::mainLightDir = vec3(0, -1, 0);
 vec3 DefRenderer::mainLightColor = vec3(0.5f, 0.5f, 0.5f);
 vec3 DefRenderer::ambientLightColor = vec3(0.4f, 0.4f, 0.4f);  
 
-#define TEXTURES 3
+#define TEXTURES 4
 
 void DefRenderer::Init()
 {
@@ -24,8 +23,8 @@ void DefRenderer::Init()
 	ivec2 screen = Graphics::GetViewport();
 
 	glGenFramebuffers(1, &fbo);
-	GLuint FBOtexture[TEXTURES+1]; //color, normal
-	glGenTextures(TEXTURES+1, FBOtexture);
+	GLuint FBOtexture[TEXTURES]; //color, normal
+	glGenTextures(TEXTURES, FBOtexture);
 	glGenRenderbuffers(1, &rbo); //depth & stencil
 	CHECK_GL_ERROR();
 
@@ -58,14 +57,14 @@ void DefRenderer::Init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	textures[2] = new Texture(FBOtexture[2]);
 
-	//initialize depth texture
-	glBindTexture(GL_TEXTURE_2D, FBOtexture[TEXTURES]);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, screen.x, screen.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+	//initialize Light texture
+	glBindTexture(GL_TEXTURE_2D, FBOtexture[3]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, screen.x, screen.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-	depthTexture = new Texture(FBOtexture[TEXTURES]);
+	textures[3] = new Texture(FBOtexture[3]);
 
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_STENCIL, screen.x, screen.y);
@@ -76,14 +75,14 @@ void DefRenderer::Init()
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBOtexture[0], 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, FBOtexture[1], 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, FBOtexture[2], 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, FBOtexture[3], 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, FBOtexture[3], 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 	CHECK_GL_ERROR();
 
 	//marking that frag shader will render to the 2 bound textures
 	//depth is handled in a different pipeline stage - no need to bother about it
 	GLenum bufferToDraw[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-	glDrawBuffers(TEXTURES, bufferToDraw);
+	glDrawBuffers(TEXTURES-1, bufferToDraw);
 	CHECK_GL_ERROR();
 
 	//check if we succeeded
@@ -110,7 +109,6 @@ void DefRenderer::Init()
 	for (int i = 0; i < TEXTURES; i++)
 		renderer->AddTexture(textures[i]);
 
-	renderer->AddTexture(depthTexture);
 	renderer->SetModel(model, GL_TRIANGLE_FAN);
 	renderer->SetShaderProgram(program);
 }
@@ -124,7 +122,6 @@ void DefRenderer::CleanUp()
 	delete model;
 	for (int i = 0; i < TEXTURES; i++)
 		delete textures[i];
-	delete depthTexture;
 	delete renderer;
 }
 
@@ -136,7 +133,7 @@ void DefRenderer::BeginGeomGather()
 	glEnable(GL_DEPTH_TEST); //enable depth testing
 	glDepthMask(GL_TRUE); //and allow depth writing
 	GLenum bufferToDraw[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 }; //write to color, normal and Position buffers
-	glDrawBuffers(TEXTURES, bufferToDraw);
+	glDrawBuffers(TEXTURES-1, bufferToDraw);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

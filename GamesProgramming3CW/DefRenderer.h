@@ -13,8 +13,7 @@ private:
 	static GLuint rbo; //holds the depth and stencil
 
 	//keeping track of model and shader
-	static Texture *textures[3];
-	static Texture *depthTexture;
+	static Texture *textures[4];
 	static Model *model;
 	static ShaderProgram *program;
 	static ShaderProgram *nullProg;
