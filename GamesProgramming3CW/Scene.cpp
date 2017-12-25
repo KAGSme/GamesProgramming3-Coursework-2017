@@ -6,6 +6,7 @@
 #include "Light.h"
 #include "WaterComp.h"
 #include "CameraComponent.h"
+#include "DefRenderer.h"
 
 Scene::Scene(ResourceManager* rM)
 {

@@ -2,7 +2,7 @@
 
 layout(location = 0) out vec4 FragColor;
 layout(location = 1) out vec4 Normal;
-layout(location = 2) out vec3 Position;
+layout(location = 2) out vec4 Position;
 
 in vec2 vertexTexCoordsOut;
 in mat3 TBN;
@@ -55,11 +55,11 @@ void main()
 	
 	float visibility = ShadowCalculation(shadowCoordsOut);
 
-	FragColor.rgb = texture(texture0, vertexTexCoordsOut).rgb;
+	FragColor = vec4(texture(texture0, vertexTexCoordsOut).rgb, texture(texture2, vertexTexCoordsOut).r);
 	
-	FragColor.a = (texture(texture2, vertexTexCoordsOut).r * specularPower) /100; //specular
+	Position.a = (specularPower); //specular
 	
 	Normal = vec4(worldNormal, visibility);
 	
-	Position = fragPosOut;
+	Position.xyz = fragPosOut;
 }

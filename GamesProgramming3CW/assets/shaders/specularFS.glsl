@@ -2,7 +2,7 @@
 
 layout(location = 0) out vec4 FragColor;
 layout(location = 1) out vec4 Normal;
-layout(location = 2) out vec3 Position;
+layout(location = 2) out vec4 Position;
 
 in vec3 worldNormal;
 in vec3 FragPos;
@@ -48,8 +48,8 @@ void main()
 {
 	float visibility = ShadowCalculation(shadowCoordsOut);
 
-	Position = FragPos;
-	FragColor.xyz = diffuseMaterialColor.xyz;
-	FragColor.a = (1 * specularPower)/100;
+	Position.xyz = FragPos;
+	FragColor = vec4(diffuseMaterialColor.xyz, 1.0);
+	Position.a = specularPower;
 	Normal = vec4((worldNormal * 0.5 + 0.5).xyz, visibility);
 }

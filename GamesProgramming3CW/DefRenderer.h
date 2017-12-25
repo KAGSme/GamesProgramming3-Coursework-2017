@@ -32,6 +32,7 @@ public:
 	static void CleanUp();
 	//get the deferred renderer frame buffer
 	static GLuint Get() { return fbo; }
+	static Texture* GetTextures() { return textures[0]; };
 	static void BeginGeomGather();
 	static void EndGeomGather();
 	static void BeginLightGather();

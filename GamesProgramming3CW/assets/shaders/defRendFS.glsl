@@ -22,17 +22,21 @@ void main()
 	vec3 albedo = texture(texture0, vertexUV).rgb;
 	vec3 normal = texture(texture1, vertexUV).rgb * 2 - 1;
 	float shadowVisibility = texture(texture1, vertexUV).a;
+	float spec = texture(texture0, vertexUV).a;
+	float shine = texture(texture2, vertexUV).a;
 	
-	float spec = texture(texture0, vertexUV).a * 100;
 	float diffuseTerm = clamp(dot(normal, lightDir), 0, 1);
 	
 	vec3 viewDir = normalize(cameraPosition - FragPos);
 	vec3 halfWayVec = normalize(viewDir + lightDir);
-	float specularTerm = pow(clamp(dot(normal , halfWayVec), 0.f, 1.f), spec);
+	float specularTerm = pow(clamp(dot(normal , halfWayVec), 0.f, 1.f), shine);
 	
-	vec3 finalColor = (ambientLightColor * albedo) + 
+	vec3 finalColor;
+	if(FragPos == vec3(0,0,0)) finalColor = albedo;
+	
+	else finalColor = (ambientLightColor * albedo) + 
 	(albedo * diffuseTerm * lightColor * (1 - shadowVisibility)) + 
-	(specularTerm * specularLightColor * (1 - shadowVisibility));
+	(spec * specularTerm * specularLightColor * (1 - shadowVisibility));
 	
 	FragColor = vec4(finalColor, 1);
 }

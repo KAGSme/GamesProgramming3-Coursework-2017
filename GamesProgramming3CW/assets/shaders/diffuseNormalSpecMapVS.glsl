@@ -27,12 +27,12 @@ void main()
 	
 	// then retrieve perpendicular vector B with the cross product of T and N
 	vec3 B = cross(T, N);
-	vec3 worldPos = (Model*vec4(vertexPosition, 1.0)).xyz;
+	vec4 worldPos = Model * vec4(vertexPosition, 1.0);
 
 	TBN = mat3(T, B, N);  
 	
 	vertexTexCoordsOut = vertexTexCoords;
 	gl_Position = MVP * vec4(vertexPosition, 1.0);
-	shadowCoordsOut = shadowDepthBiasMVP * vec4(worldPos, 1.0);
-	fragPosOut = worldPos;
+	shadowCoordsOut = shadowDepthBiasMVP * vec4(worldPos.xyz, 1.0);
+	fragPosOut = worldPos.xyz;
 }

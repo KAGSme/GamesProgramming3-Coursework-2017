@@ -16,6 +16,10 @@
 		<Model>Fern2.fbx</Model>
 		<Model>Plane.FBX</Model>
 		<Model>arrow.fbx</Model>
+		<Model>carSUV.fbx</Model>
+		<Model>RaceC.FBX</Model>
+		<Model>RegularC.FBX</Model>
+		<Model>Volkswagen Type 2 Kombi T1 1967.fbx</Model>
     </ModelList>
 	<TextureList>
 		<Texture>texture.png</Texture>
@@ -39,6 +43,14 @@
 		<Texture>WaterPlain_COLOR.png</Texture>
 		<Texture>WaterPlain_NRM.png</Texture>
 		<Texture>WaterPlain_SPEC.png</Texture>
+		<Texture>Car/carSUV_COLOR.jpg</Texture>
+		<Texture>Car/carSUV_NORMAL.jpg</Texture>
+		<Texture>Car/RaceC_red_diffuse.png</Texture>
+		<Texture>Car/RaceC_red_normal.png</Texture>
+		<Texture>Car/RaceC_red_specular.png</Texture>
+		<Texture>Car/RegularC_diffuse_green.png</Texture>
+		<Texture>Car/RegularC_normal.png</Texture>
+		<Texture>Car/RegularC_specular.png</Texture>
 	</TextureList>
 	<ShaderList>
 		<Shader vert="specularVS.glsl" frag="specularFS.glsl">Specular</Shader>
@@ -54,6 +66,7 @@
 		<Shader vert="parallaxMappingVS.glsl" frag="parallaxMappingFS.glsl">ParallaxMapping</Shader>
 		<Shader vert="waterVS.glsl" frag="waterFS.glsl">Water</Shader>
 		<Shader vert="simpleDepthVS.glsl" frag="simpleDepthFS.glsl">SimpleDepth</Shader>
+		<Shader vert="carSUVVS.glsl" frag="carSUVFS.glsl">carSUV</Shader>
 	</ShaderList>
 	<FontList>
 		<Font>OratorStd.otf</Font>
@@ -97,21 +110,21 @@
 		<GameObject name="Tea Pot - Big" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="15" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
 			scalex="0.6" scaley="0.6" scalez="0.6">
-			<Material diffuse="1,0,0,1" specularPower="30"/>
+			<Material diffuse="1,0,0,1" specularPower="32"/>
 			<ComponentList>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="Tea Pot - Small" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="-10" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
 			scalex="0.2" scaley="0.2" scalez="0.2">
-			<Material diffuse="0,0.8,0.5,1" specularPower="30"/>
+			<Material diffuse="0,0.8,0.5,1" specularPower="32"/>
 			<ComponentList>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="Tea Pot - Small2" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="15" posy="10" posz="0" rotx="0" roty="0" rotz="0" 
 			scalex="0.2" scaley="0.2" scalez="0.2">
-			<Material diffuse="0.5,0.8,0,1" specularPower="30"/>
+			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>
@@ -127,7 +140,7 @@
 		</GameObject>
 		<GameObject name="Light3" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
 			posx="100" posy="0" posz="100" rotx="0" roty="0" rotz="0" 
-			scalex="40" scaley="40" scalez="40">
+			scalex="20" scaley="20" scalez="20">
 			<ComponentList>
 				<Component ID="Light">
 					<Attributes color="1,0,0,1" state="point"/>
@@ -144,7 +157,7 @@
 		<GameObject name="Floor" hasRenderer="true" texture="texture.png" model="Plane.FBX" shader="Specular"  
 			posx="0" posy="1" posz="100" rotx="-90" roty="0" rotz="0" 
 			scalex="10" scaley="10" scalez="10">
-			<Material diffuse="0,0.6,1,1" specularPower="80"/>
+			<Material diffuse="0,0.6,1,1" specularPower="32"/>
 			<ComponentList>	
 			</ComponentList>
 		</GameObject>	
@@ -155,5 +168,29 @@
 				<Component ID="WaterComp"/>
 			</ComponentList>
 		</GameObject>	
+		<GameObject name="Car" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
+			posx="50" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
+			scalex="3" scaley="5" scalez="3">
+			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<ComponentList>
+				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>	
+		<GameObject name="Car3" hasRenderer="true" texture="Car/RaceC_red_diffuse.png,Car/RaceC_red_normal.png,Car/RaceC_red_specular.png" model="RaceC.FBX" shader="diffuseNormalSpecMap" 
+			posx="70" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
+			scalex="3" scaley="3" scalez="3">
+			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<ComponentList>
+				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Car4" hasRenderer="true" texture="Car/RegularC_diffuse_green.png,Car/RegularC_normal.png,Car/RegularC_specular.png" model="RegularC.FBX" shader="diffuseNormalSpecMap" 
+			posx="90" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
+			scalex="3" scaley="3" scalez="3">
+			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<ComponentList>
+				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>
 	</GameObjectList>
 </Scene>

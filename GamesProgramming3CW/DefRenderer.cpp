@@ -31,17 +31,33 @@ void DefRenderer::Init()
 
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-	//initialization of the textures and buffers
-	for (int i = 0; i < TEXTURES; i++)
-	{
-		glBindTexture(GL_TEXTURE_2D, FBOtexture[i]);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, screen.x, screen.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-		textures[i] = new Texture(FBOtexture[i]);
-	}
+	//albedo + Spec
+	glBindTexture(GL_TEXTURE_2D, FBOtexture[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, screen.x, screen.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	textures[0] = new Texture(FBOtexture[0]);
+
+	//Normal + Shadow Vis
+	glBindTexture(GL_TEXTURE_2D, FBOtexture[1]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, screen.x, screen.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	textures[1] = new Texture(FBOtexture[1]);
+
+	//Position + max shine
+	glBindTexture(GL_TEXTURE_2D, FBOtexture[2]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screen.x, screen.y, 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	textures[2] = new Texture(FBOtexture[2]);
+
 	//initialize depth texture
 	glBindTexture(GL_TEXTURE_2D, FBOtexture[TEXTURES]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, screen.x, screen.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
@@ -93,6 +109,7 @@ void DefRenderer::Init()
 	renderer = new Renderer();
 	for (int i = 0; i < TEXTURES; i++)
 		renderer->AddTexture(textures[i]);
+
 	renderer->AddTexture(depthTexture);
 	renderer->SetModel(model, GL_TRIANGLE_FAN);
 	renderer->SetShaderProgram(program);
@@ -218,12 +235,12 @@ void DefRenderer::RenderGather()
 	program->SetUniform("lightDir", &mainLightDir); 
 	program->SetUniform("lightColor", &mainLightColor);
 	program->SetUniform("ambientLightColor", &ambientLightColor);
+	vec3 specLightColor(1, 1, 1);
+	program->SetUniform("specularLightColor", &specLightColor);
 
 	vec3 camPos = Game::currentScene->GetSceneCamera()->GetPos();
 	program->SetUniform("cameraPosition", &camPos);
 
-	vec3 specLightColor(1, 1, 1); 
-	program->SetUniform("specularLightColor", &specLightColor); 
 
 	renderer->Render();
 } 
