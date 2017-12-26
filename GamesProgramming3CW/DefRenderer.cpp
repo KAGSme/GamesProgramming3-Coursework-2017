@@ -221,9 +221,11 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 	r->GetProgram()->SetUniform("Intensity", &intensity);
 	vec4 color = l->GetColor();
 	r->GetProgram()->SetUniform("Color", &color);
-	float maxDistance = r->GetParentGO()->GetTransform()->GetScale().x;
+	//float maxDistance = r->GetParentGO()->GetTransform()->GetScale().x;
+	float maxDistance = r->GetModel()->GetBoundingSphere(r->GetParentGO()->GetTransform()->GetTransformationMatrix()).rad;
 	r->GetProgram()->SetUniform("MaxDistance", &maxDistance);
 	r->GetProgram()->SetUniform("cameraPosition", &cam->GetParentTransform()->GetPosition());
+	r->GetProgram()->SetUniform("screenSize", &vec2(SCREEN_W, SCREEN_H));
 
 	r->Render();
 
@@ -244,7 +246,7 @@ void DefRenderer::RenderGather()
 	vec3 specLightColor(1, 1, 1);
 	program->SetUniform("specularLightColor", &specLightColor);
 
-	vec3 camPos = Game::currentScene->GetSceneCamera()->GetPos();
+	vec3 camPos = Game::GetCurrentScene()->GetSceneCamera()->GetPos();
 	program->SetUniform("cameraPosition", &camPos);
 
 

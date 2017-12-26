@@ -49,14 +49,12 @@ void CameraBehaviour::OnBegin()
 		__hook(&InputAction::InputActionChange, iaS, &CameraBehaviour::InputSpeedBoost);
 
 	InputAction* iaS2 = Input::GetInputActionState("SpeedBoost");
-	if (iaS)
-		__hook(&InputAction::InputActionChange, iaS, &CameraBehaviour::InputSpeedBoostHold);
+	if (iaS2)
+		__hook(&InputAction::InputActionChange, iaS2, &CameraBehaviour::InputSpeedBoostHold);
 }
 
-float currentDeltaTime;
 void CameraBehaviour::Update(float deltaTime)
 {
-	currentDeltaTime = deltaTime;
 	vec3 up = camera->GetUp();
 
 	//Handle Player Input-------------------------------------------------------------------------------------------
@@ -92,17 +90,17 @@ void CameraBehaviour::Update(float deltaTime)
 
 	char buffer[50];
 	sprintf_s(buffer, "Camera Rotation: %2.2f %2.2f %2.2f", gRot.x, gRot.y, gRot.z);
-	Game::resourceManager->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 90, 325, 25 });
+	Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 90, 325, 25 });
 }
 
 void CameraBehaviour::InputAxisVertical(float state)
 {
-	pGameObject->GetTransform()->AddPosition(camera->GetForward() * currentDeltaTime * speed * state);
+	pGameObject->GetTransform()->AddPosition(camera->GetForward() * Game::GetGlobalDeltaTime() * speed * state);
 }
 
 void CameraBehaviour::InputAxisHorizontal(float state)
 {
-	pGameObject->GetTransform()->AddPosition(camera->GetRight() * currentDeltaTime * speed * state);
+	pGameObject->GetTransform()->AddPosition(camera->GetRight() * Game::GetGlobalDeltaTime() * speed * state);
 }
 
 void CameraBehaviour::InputSpeedBoost(bool state)
@@ -119,10 +117,9 @@ void CameraBehaviour::InputSpeedBoost(bool state)
 
 void CameraBehaviour::InputSpeedBoostHold(bool state)
 {
-	if (!boostToggle)
+	if (!boostToggle) 
 	{
-		if (Input::GetInputAction("SpeedBoost"))
-			speed = boostSpeed;
+		if (state) speed = boostSpeed;
 		else speed = baseSpeed;
 	}
 }

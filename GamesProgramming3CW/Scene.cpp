@@ -7,6 +7,7 @@
 #include "WaterComp.h"
 #include "CameraComponent.h"
 #include "DefRenderer.h"
+#include "PlayerCar.h"
 
 Scene::Scene(ResourceManager* rM)
 {
@@ -21,6 +22,7 @@ Scene::Scene(ResourceManager* rM)
 	componentIDValues["Light"] = LIGHT;
 	componentIDValues["WaterComp"] = WATERCOMP;
 	componentIDValues["CameraComponent"] = CAMERA_COMPONENT;
+	componentIDValues["PlayerCar"] = PLAYER_CAR;
 
 	camera = new Camera();
 }
@@ -133,6 +135,11 @@ void Scene::AttachComponent(string & compID, GameObject * go, XMLElement* attrib
 			go->AttachComponent(new CameraComponent());
 		}
 			break;
+		case PLAYER_CAR:
+		{
+			go->AttachComponent(new PlayerCar());
+		}
+		break;
 	}
 }
 

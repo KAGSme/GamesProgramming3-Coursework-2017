@@ -18,7 +18,6 @@ void Input::SetKey(SDL_Keycode key, bool state)
 	if (key >= SDLK_CAPSLOCK)
 	{
 		keys[key - (1 << 30) + 128] = state;
-		//printf("%d - %c %d\n", state, key, key - (1 << 30) + 128);
 	}
 	else
 	{
@@ -104,7 +103,11 @@ XMLError Input::LoadInput()
 		attributeInputs = split(temp, ',');
 		for (int i = 0 ; i < attributeInputs.size(); i++) 
 		{
-			tempInputAction->keys.push_back(*attributeInputs.at(i).c_str());
+			if (attributeInputs.at(i).length() > 1)
+			{
+				tempInputAction->keys.push_back(CommonXml::GetSpecialKeyFromInputXml(attributeInputs.at(i)));
+			}
+			else tempInputAction->keys.push_back(*attributeInputs.at(i).c_str());
 		}
 
 		temp = actionItem->Attribute("gamepad");
@@ -140,7 +143,11 @@ XMLError Input::LoadInput()
 		attributeInputs = split(temp, ',');
 		for (int i = 0; i < attributeInputs.size(); i++)
 		{
-			tempInputAxis->keysPos.push_back(*attributeInputs.at(i).c_str());
+			if (attributeInputs.at(i).length() > 1)
+			{
+				tempInputAxis->keysPos.push_back(CommonXml::GetSpecialKeyFromInputXml(attributeInputs.at(i)));
+			}
+			else tempInputAxis->keysPos.push_back(*attributeInputs.at(i).c_str());
 		}
 
 		temp = axisItem->Attribute("keyboardNegative");
@@ -148,7 +155,11 @@ XMLError Input::LoadInput()
 		attributeInputs = split(temp, ',');
 		for (int i = 0; i < attributeInputs.size(); i++)
 		{
-			tempInputAxis->keysNeg.push_back(*attributeInputs.at(i).c_str());
+			if (attributeInputs.at(i).length() > 1)
+			{
+				tempInputAxis->keysNeg.push_back(CommonXml::GetSpecialKeyFromInputXml(attributeInputs.at(i)));
+			}
+			else tempInputAxis->keysNeg.push_back(*attributeInputs.at(i).c_str());
 		}
 
 		temp = axisItem->Attribute("gamepadPositive");

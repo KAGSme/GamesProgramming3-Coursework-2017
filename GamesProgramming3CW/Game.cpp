@@ -10,6 +10,7 @@ uint Game::verticesRendered;
 uint Game::drawCalls;
 Scene* Game::currentScene;
 ResourceManager* Game::resourceManager;
+float Game::_globaDeltaTime;
 
 #define SKYBOX_DIST 5
 
@@ -194,6 +195,7 @@ void Game::Loop()
 
 		inputTime = ticks - inputTicks;
 		float deltaTime = (ticks - oldTicks) / 1000.f;
+		_globaDeltaTime = deltaTime;
 		oldTicks = ticks;
 
 		if (Input::GetKey(SDLK_ESCAPE))

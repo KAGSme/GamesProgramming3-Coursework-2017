@@ -13,15 +13,15 @@ void CameraComponent::Update(float DeltaTime)
 
 void CameraComponent::SetSceneTargetCameraToThis()
 {
-	_camera = Game::currentScene->GetSceneCamera();
+	_camera = Game::GetCurrentScene()->GetSceneCamera();
 	_camera->SetParentTransform(pGameObject->GetTransform());
 }
 
 void CameraComponent::OnOverlap(GameObject * other)
 {
-	vec3 delta = pGameObject->GetTransform()->GetPosition() - other->GetTransform()->GetPosition();
+	/*vec3 delta = pGameObject->GetTransform()->GetPosition() - other->GetTransform()->GetPosition();
 	float distance = glm::length(delta);
-	cout << "Overlapped with " << other->GetName() << " " << distance << " units" << endl;
+	cout << "Overlapped with " << other->GetName() << " " << distance << " units" << endl;*/
 }
 
 

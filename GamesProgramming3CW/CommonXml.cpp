@@ -46,6 +46,35 @@ const map<string, Uint8> gamepadStrings =
 	{ "gamepad_RT", SDL_CONTROLLER_AXIS_TRIGGERRIGHT }
 };
 
+const map<string, SDL_Keycode> specialKeyStrings =
+{
+	{ "left", SDLK_LEFT },
+	{ "right", SDLK_RIGHT },
+	{ "up", SDLK_UP },
+	{ "down", SDLK_DOWN },
+	{ "l_shift", SDLK_LSHIFT },
+	{ "r_shift", SDLK_RSHIFT },
+	{ "tab", SDLK_TAB },
+	{ "l_ctrl", SDLK_LCTRL },
+	{ "r_ctrl", SDLK_RCTRL },
+	{ "space", SDLK_SPACE },
+	{ "l_alt", SDLK_LALT },
+	{ "l_alt", SDLK_RALT },
+};
+
+int CommonXml::GetSpecialKeyFromInputXml(string xmlInput)
+{
+	if (specialKeyStrings.count(xmlInput) == 0)
+		return SDLK_0; //return 0 key as default
+
+	SDL_Keycode k = specialKeyStrings.at(xmlInput);
+	if (k > SDLK_CAPSLOCK)
+	{
+		return (k - (1 << 30) + 128);
+	}
+	else return specialKeyStrings.at(xmlInput);
+}
+
 Uint8 CommonXml::GetGamepadButtonFromInputXml(string xmlInput)
 {
 	if (gamepadStrings.count(xmlInput) == 0)

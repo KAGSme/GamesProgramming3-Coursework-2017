@@ -1,25 +1,13 @@
 <Scene name="ShadowLightingTest">
      <ModelList>
 		<Model>utah-teapot.fbx</Model>
-		<Model>3d-model.fbx</Model>
-		<Model>NormalMapTest.FBX</Model>
-		<Model>NormalMapTest2.FBX</Model>
 		<Model>creature1.fbx</Model>
 		<Model>sphere.fbx</Model>
-		<Model>Tree.fbx</Model>
-		<Model>Rock1.fbx</Model>
-		<Model>Rock2.fbx</Model>
-		<Model>Rock3.fbx</Model>
-		<Model>Rock4.fbx</Model>
-		<Model>Rock5.fbx</Model>
-		<Model>Fern1.fbx</Model>
-		<Model>Fern2.fbx</Model>
+		<Model>cone.fbx</Model>
 		<Model>Plane.FBX</Model>
-		<Model>arrow.fbx</Model>
 		<Model>carSUV.fbx</Model>
 		<Model>RaceC.FBX</Model>
 		<Model>RegularC.FBX</Model>
-		<Model>Volkswagen Type 2 Kombi T1 1967.fbx</Model>
     </ModelList>
 	<TextureList>
 		<Texture>texture.png</Texture>
@@ -60,6 +48,7 @@
 		<Shader vert="postProcVS.glsl" frag="colorCorr2FS.glsl">PostProcess2</Shader>
 		<Shader vert="terrainVS.glsl" frag="terrainFS.glsl">Terrain</Shader>
 		<Shader vert="pointLightVS.glsl" frag="pointLightFS.glsl">PointLight</Shader>
+		<Shader vert="spotLightVS.glsl" frag="spotLightFS.glsl">spotLight</Shader>
 		<Shader vert="skyboxVS.glsl" frag="skyboxFS.glsl">SkyBox</Shader>
 		<Shader vert="treeVS.glsl" frag="treeFS.glsl">Tree</Shader>
 		<Shader vert="rockVS.glsl" frag="rockFS.glsl">Rock</Shader>
@@ -129,22 +118,32 @@
 				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>
 		</GameObject>
-		<GameObject name="Light2" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
-			posx="50" posy="0" posz="50" rotx="0" roty="0" rotz="0" 
-			scalex="60" scaley="60" scalez="60">
-			<ComponentList>
-				<Component ID="Light">
-					<Attributes color="0,1,0,1" state="point"/>
-				</Component>
-			</ComponentList>
-		</GameObject>
 		<GameObject name="Light3" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
-			posx="100" posy="0" posz="100" rotx="0" roty="0" rotz="0" 
-			scalex="60" scaley="60" scalez="60">
+			posx="50" posy="5" posz="-10" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
 			<ComponentList>
 				<Component ID="Light">
 					<Attributes color="1,0,0,1" state="point"/>
 				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Light4" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="70" posy="0" posz="-10" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0,0,1,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="Light5" hasRenderer="true" texture="" model="cone.fbx" shader="spotLight" 
+			posx="20" posy="5" posz="-10" rotx="-90" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="50">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0.5,0,1,1" state="point"/>
+				</Component>
+				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="TestModel" hasRenderer="true" texture="creature1Albedo.png,creature1Normal.png,creature1Specular.png" model="creature1.fbx" shader="diffuseNormalSpecMap" 
@@ -157,15 +156,8 @@
 		<GameObject name="Floor" hasRenderer="true" texture="texture.png" model="Plane.FBX" shader="Specular"  
 			posx="0" posy="1" posz="100" rotx="-90" roty="0" rotz="0" 
 			scalex="10" scaley="10" scalez="10">
-			<Material diffuse="0,0.6,0.5,1" specularPower="2"/>
+			<Material diffuse="0.4,0.4,0.4,1" specularPower="32"/>
 			<ComponentList>	
-			</ComponentList>
-		</GameObject>	
-		<GameObject name="Water" hasRenderer="true" texture="WaterPlain_COLOR.png,WaterPlain_NRM.png,WaterPlain_SPEC.png" model="Plane.FBX" shader="Water" 
-			posx="0" posy="0" posz="100" rotx="-90" roty="0" rotz="0" 
-			scalex="10" scaley="10" scalez="10">
-			<ComponentList>	
-				<Component ID="WaterComp"/>
 			</ComponentList>
 		</GameObject>	
 		<GameObject name="Car" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
@@ -181,7 +173,7 @@
 			scalex="3" scaley="3" scalez="3">
 			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
 			<ComponentList>
-				<Component ID="MoveGOBehaviour"/>
+				<Component ID="PlayerCar"/>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="Car4" hasRenderer="true" texture="Car/RegularC_diffuse_green.png,Car/RegularC_normal.png,Car/RegularC_specular.png" model="RegularC.FBX" shader="diffuseNormalSpecMap" 

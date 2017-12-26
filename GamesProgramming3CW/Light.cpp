@@ -15,6 +15,10 @@ Light::Light(vec4 color, E_LightState state = E_LightState::POINT)
 
 	if (_state == E_LightState::DIRECTIONAL)
 	{
+
+		SHADOW_WIDTH = 8192;
+		SHADOW_HEIGHT = 8192;
+
 		glGenFramebuffers(1, &depthMapFBO);
 
 		glGenTextures(1, &depthMap);
@@ -36,7 +40,7 @@ Light::Light(vec4 color, E_LightState state = E_LightState::POINT)
 		//glBindFramebuffer(GL_FRAMEBUFFER, 0); 
 
 		depthTexture = new Texture(depthMap);
-		Game::resourceManager->AddTexture("DirShadowMap", depthTexture);
+		Game::GetResourceManager()->AddTexture("DirShadowMap", depthTexture);
 	}
 }
 
@@ -50,7 +54,7 @@ Camera * Light::ConfigureDirLightCamera()
 {
 	Camera *lightCamera = new Camera();
 	GLfloat nearPlane = -10, farPlane = 20;
-	lightCamera->SetProjOrtho(-100, 100, -100, 100, -10, 1000);
+	lightCamera->SetProjOrtho(-500, 500, -500, 500, -10, 1000);
 	lightCamera->SetParentTransform(pGameObject->GetTransform());
 	lightCamera->Recalculate(); 
 	depthVP = lightCamera->Get();
@@ -86,9 +90,11 @@ void Light::Update(float deltaTime)
 	if (_state == E_LightState::DIRECTIONAL)
 	{
 		direction = pGameObject->GetTransform()->GetForward(); 
+		vec3 newPos = Game::GetCurrentScene()->GetSceneCamera()->GetParentTransform()->GetPosition();
+		pGameObject->GetTransform()->SetPosition(vec3(newPos.x, newPos.y + 100, newPos.z)); //keeps shadow camera above regular camera at all times.
 
 		char buffer[50];  
 		sprintf_s(buffer, "DIR LIGHT direction: %.2f %.2f %.2f", direction.x, direction.y, direction.z);
-		Game::resourceManager->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 60, 325, 25 });
+		Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 60, 325, 25 });
 	}
 }

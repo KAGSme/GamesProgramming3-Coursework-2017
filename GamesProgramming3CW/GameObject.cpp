@@ -14,13 +14,14 @@ GameObject::~GameObject()
 
 void GameObject::Begin()
 {
+	_transform->GetTransformationMatrix();
 	for (auto it = components.begin(); it != components.end(); it++) {
 		(*(it->second)).OnBegin();
 	}
 	
 	//add shadow map to renderer
 	if (!renderer) return;
-	renderer->AddTexture(Game::resourceManager->GetTexture("DirShadowMap"));  
+	renderer->AddTexture(Game::GetResourceManager()->GetTexture("DirShadowMap"));  
 }
 
 void GameObject::Update(float deltaTime)
@@ -46,10 +47,10 @@ void GameObject::Render(Camera *camera)
 	mat4 MVP = VP * model;
 	program->SetUniform("MVP", value_ptr(MVP));   
 	   
-	mat4 shadowDepthMVP = Game::currentScene->GetMainDirLight()->GetLight()->GetShadowMapDepthVP();   
+	mat4 shadowDepthMVP = Game::GetCurrentScene()->GetMainDirLight()->GetLight()->GetShadowMapDepthVP();   
 	program->SetUniform("shadowDepthBiasMVP", value_ptr(shadowDepthMVP));
 
-	vec3 lightDir = Game::currentScene->GetMainDirLight()->GetLight()->GetLightDirection();;
+	vec3 lightDir = Game::GetCurrentScene()->GetMainDirLight()->GetLight()->GetLightDirection();;
 	program->SetUniform("lightDirection", &lightDir);
 
 	program->SetUniform("diffuseMaterialColor", &_material->diffuseColor);

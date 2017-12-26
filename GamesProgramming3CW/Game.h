@@ -36,6 +36,10 @@ private:
 	int updateTime = 0;
 	int updateTicks;
 
+	static float _globaDeltaTime;
+	static ResourceManager* resourceManager;
+	static Scene* currentScene;
+
 public:
 	Game();
 	~Game();
@@ -51,8 +55,10 @@ public:
 
 	static uint verticesRendered;
 	static uint drawCalls;
-	static Scene* currentScene;
-	static ResourceManager* resourceManager;
+
+	static Scene* GetCurrentScene() { return currentScene; }
+	static ResourceManager* GetResourceManager() { return resourceManager; }
+	static float GetGlobalDeltaTime() { return _globaDeltaTime; }
 };
 
 #endif

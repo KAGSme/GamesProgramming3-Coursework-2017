@@ -71,8 +71,8 @@ void TerrainComp::SetParentGO(GameObject *pGO)
 
 	//next up, tree population
 	//setting up the object for instanced tree rendering
-	ResourceManager *mngr = Game::resourceManager;
-	Scene *scene = Game::currentScene;
+	ResourceManager *mngr = Game::GetResourceManager();
+	Scene *scene = Game::GetCurrentScene();
 	Model *tree = mngr->GetModel("Tree.fbx");
 	tree->SetBoundSphereUse(false);
 	ShaderProgram *prog = mngr->GetShader("Tree");

@@ -16,7 +16,7 @@ private:
 	float intensity = 10.0f;
 	vec3 direction = {1,1,1};
 
-	GLuint SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+	GLuint SHADOW_WIDTH = 8192, SHADOW_HEIGHT = 8192;
 	GLuint depthMapFBO;
 	GLuint depthMap;
 	Texture* depthTexture;

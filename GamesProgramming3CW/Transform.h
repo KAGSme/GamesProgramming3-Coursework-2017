@@ -9,7 +9,7 @@ private:
 	quat _rotation;
 	mat4 _transformMatrix;
 
-	bool _isDirty = false;
+	bool _isDirty = true;
 	mat4 UpdateTransformMatrix();
 public:
 

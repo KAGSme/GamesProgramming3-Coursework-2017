@@ -53,4 +53,6 @@ struct RECTF
 #define SCREEN_W 1280.f
 #define SCREEN_H 768.f
 
+void InterpVec3To(vec3 &vecStart, vec3 destination, float speed, float deltaTime);
+
 #endif

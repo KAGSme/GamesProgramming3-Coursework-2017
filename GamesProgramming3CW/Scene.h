@@ -17,7 +17,8 @@ static enum componentID {
 	MOVEGOBEHAVIOUR,
 	LIGHT,
 	WATERCOMP,
-	CAMERA_COMPONENT
+	CAMERA_COMPONENT,
+	PLAYER_CAR
 };
 
 using namespace tinyxml2;
