@@ -187,9 +187,18 @@ void Scene::Update(float deltaTime)
 	{
 		_skybox->Update(deltaTime);
 	}
+	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
-		(*iter)->Update(deltaTime);
+		if ((*iter)->IsPendingDestroy())
+		{
+			cout << "DESTROYED: " << (*iter)->GetName() << endl;
+			delete (*iter);
+			iter = gameObjects.erase(iter);
+			if (i >= gameObjects.size()) iter = gameObjects.end()-1;
+		}
+		else (*iter)->Update(deltaTime);
+		i++;
 	}
 
 	//Sphere Collisions

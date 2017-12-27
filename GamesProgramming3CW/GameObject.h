@@ -21,6 +21,7 @@ private:
 	Transform* _transform;
 	SphereCol* _col;
 	Material* _material = new Material();
+	bool _pendingDestroy = false;
 
 public:
 	GameObject();
@@ -40,6 +41,9 @@ public:
 	void Update(float deltaTime);
 	void Render(Camera *camera);
 	void Render(Camera *camera, ShaderProgram *overrideProgram);
+
+	void Destroy() { _pendingDestroy = true; };
+	bool IsPendingDestroy() { return _pendingDestroy; };
 
 	void AttachComponent(BaseComponent *com);
 	BaseComponent* GetComponent(string componentType);

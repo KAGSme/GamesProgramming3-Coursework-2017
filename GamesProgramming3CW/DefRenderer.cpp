@@ -13,7 +13,7 @@ vec3 DefRenderer::mainLightDir = vec3(0, -1, 0);
 vec3 DefRenderer::mainLightColor = vec3(1, 1, 0.984);
 vec3 DefRenderer::ambientLightColor = vec3(0.65f, 0.65f, 0.7f);
 vec3 DefRenderer::fogColor = vec3(0.415f, 0.670f, 0.764f);
-float DefRenderer::fogMaxDistance = 1000 ;
+float DefRenderer::fogMaxDistance = 500;
 
 #define TEXTURES 4
 

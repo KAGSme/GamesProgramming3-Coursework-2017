@@ -43,7 +43,8 @@ void MoveGameObjectBehaviour::Update(float deltaTime)
 	if (Input::GetKey(SDLK_n))
 		GetParentGO()->GetTransform()->AddPosition(vec3( 0, 30 * deltaTime, 0));
 	if (Input::GetKey(SDLK_m))
-		GetParentGO()->GetTransform()->AddPosition(vec3( 0, -30 * deltaTime, 0)); 
+		pGameObject->Destroy();
+		//GetParentGO()->GetTransform()->AddPosition(vec3( 0, -30 * deltaTime, 0)); 
 
 }
 
