@@ -39,11 +39,11 @@
 	</FontList>
 	<GameObjectList>	
 		<GameObject name="Sun" hasRenderer="false" texture="texture.png" model="" shader="Specular" 
-			posx="0" posy="100" posz="0" rotx="90" roty="0" rotz="0" 
+			posx="0" posy="100" posz="0" rotx="120" roty="0" rotz="0" 
 			scalex="0.5" scaley="0.5" scalez="2">
 			<ComponentList>
 				<Component ID="Light">
-					<Attributes color="1,1,1,1" state="directional"/>
+					<Attributes color="0.5,0.5,1,1" state="directional"/>
 				</Component>
 			</ComponentList>
 		</GameObject>	
@@ -76,7 +76,7 @@
 		<GameObject name="Tea Pot - Big" hasRenderer="true" texture="texture.png" model="utah-teapot.fbx" shader="Specular" 
 			posx="15" posy="10" posz="-20" rotx="0" roty="0" rotz="0" 
 			scalex="0.6" scaley="0.6" scalez="0.6">
-			<Material diffuse="1,0,0,1" specularPower="32"/>
+			<Material diffuse="1,0,0,1" specularPower="64"/>
 			<ComponentList>
 			</ComponentList>
 		</GameObject>
@@ -149,7 +149,7 @@
 		<GameObject name="Car" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
 			posx="50" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="5" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>
@@ -157,7 +157,7 @@
 		<GameObject name="Car3" hasRenderer="true" texture="Car/RaceC_red_diffuse.png,Car/RaceC_red_normal.png,Car/RaceC_red_specular.png" model="RaceC.FBX" shader="diffuseNormalSpecMap" 
 			posx="70" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="3" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
 			<ComponentList>
 				<Component ID="PlayerCar"/>
 			</ComponentList>
@@ -165,7 +165,7 @@
 		<GameObject name="Car4" hasRenderer="true" texture="Car/RegularC_diffuse_green.png,Car/RegularC_normal.png,Car/RegularC_specular.png" model="RegularC.FBX" shader="diffuseNormalSpecMap" 
 			posx="90" posy="10" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="3" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="32"/>
+			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
 			</ComponentList>

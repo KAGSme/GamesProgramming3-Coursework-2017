@@ -21,7 +21,7 @@ void GameObject::Begin()
 	
 	//add shadow map to renderer
 	if (!renderer) return;
-	renderer->AddTexture(Game::GetResourceManager()->GetTexture("DirShadowMap"));  
+	if(!renderer->GetIsCubeMap())renderer->AddTexture(Game::GetResourceManager()->GetTexture("DirShadowMap"));  
 }
 
 void GameObject::Update(float deltaTime)

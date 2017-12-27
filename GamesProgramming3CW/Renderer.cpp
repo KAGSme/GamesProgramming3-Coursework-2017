@@ -6,7 +6,8 @@ GLuint Renderer::activeTexts[TEXTURE_COUNT] = { 0, 0, 0, 0, 0 };
 
 Renderer::Renderer(Texture *t, bool cubeMap, ShaderProgram *s, Model *m, int mode)
 {
-	AddTexture(t, cubeMap);
+	AddTexture(t);
+	isCubeMap = cubeMap;
 	shaderProg = s;
 	model = m;
 	renderMode = mode;

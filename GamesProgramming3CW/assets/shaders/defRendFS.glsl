@@ -11,6 +11,8 @@ uniform vec3 lightDir;
 uniform vec3 lightColor;
 uniform vec3 ambientLightColor;
 uniform vec3 specularLightColor;
+uniform vec3 fogColor;
+uniform float fogMaxDistance; 
 uniform vec3 cameraPosition;
 
 out vec4 FragColor;
@@ -32,13 +34,22 @@ void main()
 	vec3 halfWayVec = normalize(viewDir + lightDir);
 	float specularTerm = pow(clamp(dot(normal , halfWayVec), 0.f, 1.f), shine);
 	
+	float dist = distance(cameraPosition, FragPos);
+	float fIntensity = clamp(dist/fogMaxDistance,0,1);
+	vec3 finalFog = clamp(fogColor * fIntensity, vec3(0,0,0), fogColor);
+	
 	vec3 finalColor;
 	if(FragPos == vec3(0,0,0)) finalColor = albedo;
 	
-	else finalColor = (ambientLightColor * albedo) + 
-	(albedo * diffuseTerm * lightColor * (1 - shadowVisibility)) + 
-	(spec * specularTerm * specularLightColor * (1 - shadowVisibility))
-	+ otherLights;
+	else
+	{ 
+		finalColor = ((ambientLightColor * albedo) + 
+		(albedo * diffuseTerm * lightColor * (1 - shadowVisibility)) + 
+		(spec * specularTerm * specularLightColor * (1 - shadowVisibility))
+		+ otherLights);
+		
+		finalColor = mix(finalColor, fogColor, fIntensity);
+	}
 	
 	FragColor = vec4(finalColor, 1);
 }

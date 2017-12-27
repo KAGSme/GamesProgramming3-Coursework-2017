@@ -163,14 +163,30 @@ void Scene::ReleaseResources()
 
 void Scene::Begin()
 {
+	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
 		(*iter)->Begin();
+		if (!_skybox)
+		{
+			if ((*iter)->GetComponent("Skybox"))
+			{
+				_skybox = (*iter);
+				gameObjects.erase(gameObjects.begin() + i);
+				iter = gameObjects.begin() + (i - 1);
+			}
+			
+		}
+		i++;
 	}
 }
 
 void Scene::Update(float deltaTime)
 {
+	if (_skybox)
+	{
+		_skybox->Update(deltaTime);
+	}
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
 		(*iter)->Update(deltaTime);
@@ -236,6 +252,15 @@ void Scene::Sort(bool (*comparer)(GameObject *a, GameObject *b))
 
 void Scene::Render(Camera* camera)
 {
+	if (_skybox)
+	{
+		glDisable(GL_DEPTH_TEST);
+		glDepthMask(GL_FALSE);
+		_skybox->Render(camera);
+		glDepthMask(GL_TRUE);
+		glEnable(GL_DEPTH_TEST);
+	}
+
 	for (auto iter = visibleGOs.begin(); iter != visibleGOs.end(); iter++)
 		(*iter)->Render(camera);
 

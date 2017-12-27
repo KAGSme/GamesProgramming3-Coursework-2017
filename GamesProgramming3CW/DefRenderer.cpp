@@ -10,8 +10,10 @@ ShaderProgram* DefRenderer::program;
 ShaderProgram* DefRenderer::nullProg;
 Renderer* DefRenderer::renderer;
 vec3 DefRenderer::mainLightDir = vec3(0, -1, 0);
-vec3 DefRenderer::mainLightColor = vec3(0.5f, 0.5f, 0.5f);
-vec3 DefRenderer::ambientLightColor = vec3(0.4f, 0.4f, 0.4f);  
+vec3 DefRenderer::mainLightColor = vec3(1, 1, 0.984);
+vec3 DefRenderer::ambientLightColor = vec3(0.65f, 0.65f, 0.7f);
+vec3 DefRenderer::fogColor = vec3(0.415f, 0.670f, 0.764f);
+float DefRenderer::fogMaxDistance = 1000 ;
 
 #define TEXTURES 4
 
@@ -245,6 +247,8 @@ void DefRenderer::RenderGather()
 	program->SetUniform("ambientLightColor", &ambientLightColor);
 	vec3 specLightColor(1, 1, 1);
 	program->SetUniform("specularLightColor", &specLightColor);
+	program->SetUniform("fogColor", &fogColor);
+	program->SetUniform("fogMaxDistance", &fogMaxDistance);
 
 	vec3 camPos = Game::GetCurrentScene()->GetSceneCamera()->GetPos();
 	program->SetUniform("cameraPosition", &camPos);

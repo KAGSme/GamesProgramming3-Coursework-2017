@@ -22,6 +22,8 @@ private:
 	static vec3 mainLightDir;
 	static vec3 mainLightColor;
 	static vec3 ambientLightColor;
+	static vec3 fogColor;
+	static float fogMaxDistance;
 
 	DefRenderer() {}
 public:
@@ -45,6 +47,9 @@ public:
 
 	static vec3 GetSunColor() { return mainLightColor; }
 	static void SetMainLightColor(vec3 color) { mainLightColor = color; }
+
+	static void SetFogColor(vec3 color) { fogColor = color; }
+	static void SetAmbientColor(vec3 color) { ambientLightColor = color; }
 
 };
 

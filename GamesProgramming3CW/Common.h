@@ -9,6 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <memory>
 
 #include <GL/glew.h>
 #include <SDL/SDL.h>

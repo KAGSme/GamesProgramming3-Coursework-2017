@@ -22,6 +22,7 @@ public:
 	~Skybox();
 	void SetParentGO(GameObject *pGO);
 
+	void OnBegin();
 	void Update(float deltaTime);
 	void OnRender(Camera *camera);
 };

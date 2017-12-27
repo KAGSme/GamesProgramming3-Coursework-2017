@@ -134,6 +134,7 @@
     <ClInclude Include="CommonXml.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DefRenderer.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="CommonXml.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DefRenderer.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />

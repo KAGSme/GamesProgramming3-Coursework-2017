@@ -20,11 +20,17 @@ void Skybox::SetParentGO(GameObject *pGO)
 	pGameObject = pGO;
 	tD = dynamic_cast<TimeDay*>(pGameObject->GetComponent("TimeDay"));
 	renderer = pGameObject->GetRenderer();
-	renderer->SetTexture(0, skybox, true);
+	renderer->SetTexture(0, skybox);
 	if (isTimeDay)
-		renderer->SetTexture(1, skyNight, true);
+		renderer->SetTexture(1, skyNight);
 	renderer->SetModel(model, GL_TRIANGLES);
 	renderer->SetShaderProgram(shader);
+	renderer->SetCubeMapMode(true);
+}
+
+void Skybox::OnBegin()
+{
+	tD->SetTimeScale(120);
 }
 
 void Skybox::Update(float deltaTime)
@@ -48,23 +54,25 @@ void Skybox::Update(float deltaTime)
 		float angle;   
 
 		//now, the color
-		vec3 dayColor(1.f, 1.f, 1.f); //slight white
-		vec3 nightColor(0.113f, 0.039f, 0.380f); //slight blue
-		vec3 color;
+		vec3 dayColor(1.f, 1.f, 0.984f); //slight white
+		vec3 nightColor(0.137f, 0.152f, 0.301f); //slight blue
+		vec3 dayambient(0.65f, 0.65f, 0.7f);
+		vec3 nightambient(0.05f, 0.05f, 0.05f);
+		vec3 dayFog(0.415f, 0.670f, 0.764f);
+		vec3 nightFog(0,0,0);
 
 		if (nightTime)
-		{
-			angle = mix(0, -90, k);
-			color = mix(nightColor, dayColor, k);  
+		{ 
+			Game::GetCurrentScene()->GetMainDirLight()->GetLight()->SetColor(vec4(mix(nightColor, dayColor, k), 1));
+			DefRenderer::SetFogColor(mix(nightFog, dayFog, k));
+			DefRenderer::SetAmbientColor(mix(nightambient, dayambient, k));
 		}
 		else
 		{ 
-			angle = mix(-90, 0, k);
-			color = mix(dayColor, nightColor, k);
+			Game::GetCurrentScene()->GetMainDirLight()->GetLight()->SetColor(vec4(mix(dayColor, nightColor, k), 1));
+			DefRenderer::SetFogColor(mix(dayFog, nightFog, k));
+			DefRenderer::SetAmbientColor(mix(dayambient, nightambient, k));
 		}
-
-		//Game::currentScene->GetMainDirLight()->GetLight()->SetColor(vec4(color, 1));
-		//Game::currentScene->GetMainDirLight()->GetTransform()->SetRotationEuler(vec3(angle, 0, 0));
 	}
 }
 

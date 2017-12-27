@@ -39,10 +39,13 @@ public:
 	void SetShaderProgram(ShaderProgram *sP) { shaderProg = sP; }
 	ShaderProgram* GetProgram() { return shaderProg; }
 
-	void AddTexture(Texture *t, bool cubeMap = false) { textures[textCount++] = t; isCubeMap = cubeMap; }
-	void SetTexture(int i, Texture *t, bool cubeMap = false) { textures[i] = t; isCubeMap = cubeMap; }
+	void AddTexture(Texture *t) { textures[textCount++] = t; }
+	void SetTexture(int i, Texture *t) { textures[i] = t; }
 	Texture* GetTexture(int i) { return textures[i]; }
 	int GetTextureCount() { return textCount; }
+
+	void SetCubeMapMode(bool cubeMap) { isCubeMap = cubeMap; }
+	bool GetIsCubeMap() { return isCubeMap; }
 
 	void SetTransparent(bool flag) { transparent = flag; }
 	//if the object is transparent. used to render in separate queue

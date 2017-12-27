@@ -35,6 +35,7 @@ private:
 	vector<GameObject*> transparentGOs;
 	vector<GameObject*> lights;
 	GameObject* mainDirLight;
+	GameObject* _skybox;
 
 public:
 	Scene(ResourceManager* rM);

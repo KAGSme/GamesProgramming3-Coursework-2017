@@ -40,7 +40,7 @@ void PlayerCar::Update(float deltaTime)
 		velocity.x = clamp(velocity.x, -maxStrafeVel, maxStrafeVel);
 		velocity.z = clamp(velocity.z, -maxStrafeVel, maxStrafeVel);
 
-		cout << velocity.x << " " << velocity.z << endl;
+		//cout << velocity.x << " " << velocity.z << endl;
 
 		pGameObject->GetTransform()->AddPosition(velocity);
 

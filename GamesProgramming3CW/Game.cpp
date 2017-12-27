@@ -246,9 +246,13 @@ void Game::LoadResources()
 
 	//======================== TEXTURES ========================
 	//HIDE THIS AWAY IN TO SCENE MANAGER LOADER AT SOME POINT!
-	Texture* skyTexture = new Texture(TEXTURE_PATH + "right.jpg", TEXTURE_PATH + "left.jpg", TEXTURE_PATH + "top.jpg", TEXTURE_PATH + "bottom.jpg", TEXTURE_PATH + "back.jpg", TEXTURE_PATH + "front.jpg");
+	Texture* skyTexture = new Texture(TEXTURE_PATH + "SkyBox/lake1_rt.JPG", TEXTURE_PATH 
+		+ "SkyBox/lake1_lf.JPG", TEXTURE_PATH + "SkyBox/lake1_up.JPG", TEXTURE_PATH 
+		+ "SkyBox/lake1_dn.JPG", TEXTURE_PATH + "SkyBox/lake1_bk.JPG", TEXTURE_PATH + "SkyBox/lake1_ft.JPG");
 	resourceManager->AddTexture("skyTexture", skyTexture);
-	Texture* skyNightTexture = new Texture(TEXTURE_PATH + "night_right.jpg", TEXTURE_PATH + "night_left.jpg", TEXTURE_PATH + "night_top.jpg", TEXTURE_PATH + "night_bottom.jpg", TEXTURE_PATH + "night_back.jpg", TEXTURE_PATH + "night_front.jpg");
+	Texture* skyNightTexture = new Texture(TEXTURE_PATH + "SkyBox/purplenebula_rt.tga", TEXTURE_PATH 
+		+ "SkyBox/purplenebula_lf.tga", TEXTURE_PATH + "SkyBox/purplenebula_up.tga", TEXTURE_PATH 
+		+ "SkyBox/purplenebula_dn.tga", TEXTURE_PATH + "SkyBox/purplenebula_bk.tga", TEXTURE_PATH + "SkyBox/purplenebula_ft.tga");
 	resourceManager->AddTexture("skyNightTexture", skyNightTexture);
 
 	//========================  MODELS  ========================

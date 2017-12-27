@@ -49,7 +49,7 @@ void main()
 	float visibility = ShadowCalculation(shadowCoordsOut);
 
 	Position.xyz = FragPos;
-	FragColor = vec4(diffuseMaterialColor.xyz, 0.0);
+	FragColor = vec4(diffuseMaterialColor.xyz, 1);
 	Position.a = specularPower;
 	Normal = vec4((worldNormal * 0.5 + 0.5).xyz, visibility);
 }
