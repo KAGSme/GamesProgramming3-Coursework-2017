@@ -127,8 +127,8 @@
 				</Component>
 			</ComponentList>
 		</GameObject>
-		<GameObject name="Light4" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
-			posx="70" posy="0" posz="-10" rotx="0" roty="0" rotz="0" 
+		<GameObject name="Light1" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="70" posy="5" posz="-10" rotx="0" roty="0" rotz="0" 
 			scalex="20" scaley="20" scalez="20">
 			<ComponentList>
 				<Component ID="Light">
@@ -136,8 +136,17 @@
 				</Component>
 			</ComponentList>
 		</GameObject>
+		<GameObject name="Light6" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="30" posy="0" posz="-10" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0,1,0,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
 		<GameObject name="Light5" hasRenderer="true" texture="" model="cone.fbx" shader="spotLight" 
-			posx="20" posy="5" posz="-10" rotx="-90" roty="0" rotz="0" 
+			posx="40" posy="5" posz="-10" rotx="-90" roty="0" rotz="0" 
 			scalex="20" scaley="20" scalez="50">
 			<ComponentList>
 				<Component ID="Light">
