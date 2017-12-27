@@ -11,26 +11,9 @@
     </ModelList>
 	<TextureList>
 		<Texture>texture.png</Texture>
-		<Texture>grass.png</Texture>
-		<Texture>ground.jpg</Texture>
-		<Texture>rock.jpg</Texture>
-		<Texture>BrickFacade.jpg</Texture>	
-		<Texture>BrickFacade_normal.jpg</Texture>	
 		<Texture>creature1Albedo.png</Texture>
 		<Texture>creature1Normal.png</Texture>
 		<Texture>creature1Specular.png</Texture>
-		<Texture>TreeBark.png</Texture>
-		<Texture>TreeLeaves.png</Texture>
-		<Texture>Rock1.jpg</Texture>
-		<Texture>Rock2.jpg</Texture>
-		<Texture>Rock3.jpg</Texture>
-		<Texture>Rock4.jpg</Texture>
-		<Texture>Rock5.jpg</Texture>
-		<Texture>Fern1.png</Texture>
-		<Texture>Fern2.png</Texture>
-		<Texture>WaterPlain_COLOR.png</Texture>
-		<Texture>WaterPlain_NRM.png</Texture>
-		<Texture>WaterPlain_SPEC.png</Texture>
 		<Texture>Car/carSUV_COLOR.jpg</Texture>
 		<Texture>Car/carSUV_NORMAL.jpg</Texture>
 		<Texture>Car/RaceC_red_diffuse.png</Texture>
@@ -42,18 +25,12 @@
 	</TextureList>
 	<ShaderList>
 		<Shader vert="specularVS.glsl" frag="specularFS.glsl">Specular</Shader>
-		<Shader vert="normalMappingVS.glsl" frag="normalMappingFS.glsl">NormalMapping</Shader>
 		<Shader vert="diffuseNormalSpecMapVS.glsl" frag="diffuseNormalSpecMapFS.glsl">diffuseNormalSpecMap</Shader>
 		<Shader vert="postProcVS.glsl" frag="colorCorr1FS.glsl">PostProcess1</Shader>
 		<Shader vert="postProcVS.glsl" frag="colorCorr2FS.glsl">PostProcess2</Shader>
-		<Shader vert="terrainVS.glsl" frag="terrainFS.glsl">Terrain</Shader>
 		<Shader vert="pointLightVS.glsl" frag="pointLightFS.glsl">PointLight</Shader>
 		<Shader vert="spotLightVS.glsl" frag="spotLightFS.glsl">spotLight</Shader>
 		<Shader vert="skyboxVS.glsl" frag="skyboxFS.glsl">SkyBox</Shader>
-		<Shader vert="treeVS.glsl" frag="treeFS.glsl">Tree</Shader>
-		<Shader vert="rockVS.glsl" frag="rockFS.glsl">Rock</Shader>
-		<Shader vert="parallaxMappingVS.glsl" frag="parallaxMappingFS.glsl">ParallaxMapping</Shader>
-		<Shader vert="waterVS.glsl" frag="waterFS.glsl">Water</Shader>
 		<Shader vert="simpleDepthVS.glsl" frag="simpleDepthFS.glsl">SimpleDepth</Shader>
 		<Shader vert="carSUVVS.glsl" frag="carSUVFS.glsl">carSUV</Shader>
 	</ShaderList>
