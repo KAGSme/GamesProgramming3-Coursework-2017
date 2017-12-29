@@ -35,7 +35,7 @@ public:
 	Transform* GetTransform() { return _transform; }
 	SphereCol* GetCollider() { return _col; }
 	Material* GetMaterial() { return _material; }
-	void AttachCollider(SphereCol* newCol) { _col = newCol; }
+	void AttachCollider(SphereCol* newCol);
 
 	void Begin();
 	void Update(float deltaTime);
@@ -47,6 +47,8 @@ public:
 
 	void AttachComponent(BaseComponent *com);
 	BaseComponent* GetComponent(string componentType);
+	bool _centerModel = true;
+
 };
 
 #endif

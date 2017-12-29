@@ -39,7 +39,7 @@ void main()
 	vec3 finalFog = clamp(fogColor * fIntensity, vec3(0,0,0), fogColor);
 	
 	vec3 finalColor;
-	if(FragPos == vec3(0,0,0)) finalColor = albedo;
+	if(FragPos == vec3(0,0,0)) finalColor = mix(albedo, fogColor, 0.5f);
 	
 	else
 	{ 

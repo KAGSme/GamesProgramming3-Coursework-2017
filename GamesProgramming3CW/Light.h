@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "Texture.h"
 
-enum class E_LightState {POINT, DIRECTIONAL };
+enum class E_LightState {POINT, DIRECTIONAL, SPOT };
 
 class Light : public BaseComponent
 {

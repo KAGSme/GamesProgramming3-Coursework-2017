@@ -77,11 +77,12 @@ void Light::DirShadowMapRenderEnd()
 
 void Light::OnBegin()
 {
-	if (_state == E_LightState::POINT)
+	if (_state == E_LightState::POINT || _state == E_LightState::SPOT)
 	{
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(0));
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(1));
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(2));
+		pGameObject->_centerModel = false;
 	}
 }
 

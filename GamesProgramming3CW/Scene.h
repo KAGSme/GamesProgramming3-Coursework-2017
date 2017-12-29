@@ -11,14 +11,14 @@
 static enum componentID {
 	COMPONENT_NOTFOUND,
 	CAMERA_BEHAVIOUR,
-	TERRAIN,
 	SKYBOX,
 	TIMEDAY,
 	MOVEGOBEHAVIOUR,
 	LIGHT,
-	WATERCOMP,
 	CAMERA_COMPONENT,
-	PLAYER_CAR
+	PLAYER_CAR,
+	ENEMY,
+	FOLLOW_COMP
 };
 
 using namespace tinyxml2;
@@ -66,5 +66,7 @@ public:
 
 	int GetGOCount() { return gameObjects.size(); }
 	int GetVisibleGOCount() { return visibleGOs.size(); }
+
+	GameObject* GetGameObject(string name);
 };
 #endif 

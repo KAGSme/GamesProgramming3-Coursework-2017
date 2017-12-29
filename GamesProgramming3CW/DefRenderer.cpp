@@ -210,6 +210,8 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 
 	r->Ready();
 
+	Light *l = r->GetParentGO()->GetLight();
+
 	mat4 model = r->GetParentGO()->GetTransform()->GetTransformationMatrix();
 	mat4 mvp = cam->Get() * model;
 	r->GetProgram()->SetUniform("Model", value_ptr(model));
@@ -217,8 +219,10 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 	vec4 deviceCenter = vec4(mvp * vec4(0, 0, 0, 1)); //center in device coords
 
 	vec3 center(r->GetParentGO()->GetTransform()->GetPosition());
+	if (l->GetLightType() == E_LightState::SPOT)
+		center -= r->GetModel()->GetBoundingSphere(r->GetParentGO()->GetTransform()->GetTransformationMatrix()).rad * r->GetParentGO()->GetTransform()->GetForward();
 	r->GetProgram()->SetUniform("Center", &center);
-	Light *l = r->GetParentGO()->GetLight();
+
 	float intensity = l->GetIntensity();
 	r->GetProgram()->SetUniform("Intensity", &intensity);
 	vec4 color = l->GetColor();

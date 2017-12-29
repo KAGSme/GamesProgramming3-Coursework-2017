@@ -8,6 +8,8 @@
 #include "CameraComponent.h"
 #include "DefRenderer.h"
 #include "PlayerCar.h"
+#include "Enemy.h"
+#include "FollowComponent.h"
 
 Scene::Scene(ResourceManager* rM)
 {
@@ -15,14 +17,14 @@ Scene::Scene(ResourceManager* rM)
 	//register components here
 	componentIDValues[""] = COMPONENT_NOTFOUND;
 	componentIDValues["CameraBehaviour"] = CAMERA_BEHAVIOUR;
-	componentIDValues["Terrain"] = TERRAIN;
 	componentIDValues["Skybox"] = SKYBOX;
 	componentIDValues["TimeDay"] = TIMEDAY;
 	componentIDValues["MoveGOBehaviour"] = MOVEGOBEHAVIOUR;
 	componentIDValues["Light"] = LIGHT;
-	componentIDValues["WaterComp"] = WATERCOMP;
 	componentIDValues["CameraComponent"] = CAMERA_COMPONENT;
 	componentIDValues["PlayerCar"] = PLAYER_CAR;
+	componentIDValues["Enemy"] = ENEMY;
+	componentIDValues["FollowComp"] = FOLLOW_COMP;
 
 	camera = new Camera();
 }
@@ -36,7 +38,9 @@ GameObject* Scene::AddGameObject(const string& name, const vec3& position, const
 	GameObject *go = new GameObject();
 	go->SetName(name);
 	go->GetTransform()->SetPosition(position);
-	go->GetTransform()->SetRotationEuler(rotation);
+	go->GetTransform()->AddRotationEuler(vec3(rotation.x, 0,0));
+	go->GetTransform()->AddRotationEuler(vec3(0, rotation.y, 0));
+	go->GetTransform()->AddRotationEuler(vec3(0,0,rotation.z));
 	go->GetTransform()->SetScale(scale);
 	go->AttachComponent(r);
 	gameObjects.push_back(go);
@@ -48,7 +52,9 @@ GameObject * Scene::AddGameObject(const string & name, const vec3 & position, co
 	GameObject *go = new GameObject();
 	go->SetName(name);
 	go->GetTransform()->SetPosition(position);
-	go->GetTransform()->SetRotationEuler(rotation);
+	go->GetTransform()->AddRotationEuler(vec3(rotation.x, 0, 0));
+	go->GetTransform()->AddRotationEuler(vec3(0, rotation.y, 0));
+	go->GetTransform()->AddRotationEuler(vec3(0, 0, rotation.z));
 	go->GetTransform()->SetScale(scale);
 	gameObjects.push_back(go);
 	return go;
@@ -71,15 +77,6 @@ void Scene::AttachComponent(string & compID, GameObject * go, XMLElement* attrib
 			float fTemp;
 			attributesElement->QueryFloatAttribute("speed", &fTemp);
 			go->AttachComponent(new CameraBehaviour(camera, fTemp));
-		}
-			break;
-		case TERRAIN:
-		{
-			string texture = TEXTURE_PATH + attributesElement->Attribute("texture");
-			float scaleX = attributesElement->FloatAttribute("scalex");
-			float scaleY = attributesElement->FloatAttribute("scaley");
-			float scaleZ = attributesElement->FloatAttribute("scalez");
-			go->AttachComponent(new TerrainComp(texture, vec3(scaleX, scaleY, scaleZ)));
 		}
 			break;
 		case SKYBOX:
@@ -117,17 +114,13 @@ void Scene::AttachComponent(string & compID, GameObject * go, XMLElement* attrib
 			E_LightState lState = E_LightState::POINT;
 			if (lStateString == "point")
 				lState = E_LightState::POINT;
-			else if (lStateString == "directional") {
+			else if (lStateString == "directional")
 				lState = E_LightState::DIRECTIONAL;
-			}
+			else if (lStateString == "spot")
+				lState = E_LightState::SPOT;
 
 			go->AttachComponent(new Light(color, lState));
 			if(lState == E_LightState::DIRECTIONAL)SetMainDirLight(go);
-		}
-			break;
-		case WATERCOMP:
-		{
-			go->AttachComponent(new WaterComp());
 		}
 			break;
 		case CAMERA_COMPONENT:
@@ -140,6 +133,21 @@ void Scene::AttachComponent(string & compID, GameObject * go, XMLElement* attrib
 			go->AttachComponent(new PlayerCar());
 		}
 		break;
+		case ENEMY:
+		{
+			go->AttachComponent(new Enemy());
+		}
+		break;
+		case FOLLOW_COMP:
+		{
+			string posString = attributesElement->Attribute("offsetPos");
+			vector<string> splits = split(posString, ',');
+			float x = atof(splits[0].c_str());
+			float y = atof(splits[1].c_str());
+			float z = atof(splits[2].c_str());
+			string nameGo = attributesElement->Attribute("nameGo");
+			go->AttachComponent(new FollowComponent(vec3(x,y,z), nameGo));
+		}
 	}
 }
 
@@ -243,7 +251,7 @@ void Scene::VisibilityCheck()
 			}
 			
 			Light *l = (*iter)->GetLight();
-			if (l && l->GetLightType() == E_LightState::POINT)
+			if (l && (l->GetLightType() == E_LightState::POINT || l->GetLightType() == E_LightState::SPOT))
 				lights.push_back(*iter);
 
 			else if (r->GetTransparent())
@@ -324,4 +332,16 @@ void Scene::SetMainDirLight(GameObject * dirL)
 		}
 	}
 	else cout << "Unable to add Directional Light" << endl;
+}
+
+GameObject * Scene::GetGameObject(string name)
+{
+	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
+	{
+		if ((*iter)->GetName() == name)
+		{
+			return (*iter);
+		}
+	}
+	return nullptr;
 }

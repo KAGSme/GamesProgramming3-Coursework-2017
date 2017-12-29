@@ -12,6 +12,12 @@ GameObject::~GameObject()
 		delete renderer;
 }
 
+void GameObject::AttachCollider(SphereCol * newCol)
+{
+	if(!_col)_col = newCol;
+	else cout << "Already have collider" << endl;
+}
+
 void GameObject::Begin()
 {
 	_transform->GetTransformationMatrix();
@@ -41,6 +47,8 @@ void GameObject::Render(Camera *camera)
 	renderer->Ready();
 	ShaderProgram *program = renderer->GetProgram();
 	mat4 model = _transform->GetTransformationMatrix();
+	if(_centerModel)translate(model, renderer->GetModel()->GetCenter());
+
 	program->SetUniform("Model", value_ptr(model));
 	mat4 VP = camera->Get();
 	program->SetUniform("VP", value_ptr(VP));
