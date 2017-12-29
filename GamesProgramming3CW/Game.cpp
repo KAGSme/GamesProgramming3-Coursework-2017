@@ -3,7 +3,6 @@
 #include "Graphics.h"
 #include "PostProcessing.h"
 #include "CameraBehaviour.h"
-#include "TerrainComp.h"
 #include "DefRenderer.h"
 
 uint Game::verticesRendered;
