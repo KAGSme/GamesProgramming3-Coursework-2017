@@ -22,6 +22,7 @@ private:
 	SphereCol* _col;
 	Material* _material = new Material();
 	bool _pendingDestroy = false;
+	bool _isActive = true;
 
 public:
 	GameObject();
@@ -44,6 +45,9 @@ public:
 
 	void Destroy() { _pendingDestroy = true; };
 	bool IsPendingDestroy() { return _pendingDestroy; };
+
+	void SetActive(bool active) { _isActive = active; }
+	bool GetActive() { return _isActive; }
 
 	void AttachComponent(BaseComponent *com);
 	BaseComponent* GetComponent(string componentType);

@@ -147,36 +147,20 @@
 			<ComponentList>	
 			</ComponentList>
 		</GameObject>	
-		<GameObject name="EnemyCar" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
-			posx="-200" posy="0" posz="0" rotx="-90" roty="-90" rotz="0" 
-			scalex="3" scaley="5" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
-			<ComponentList>
-				<Component ID="Enemy"/>
-			</ComponentList>
-		</GameObject>	
-		<GameObject name="EnemyCar2" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
-			posx="-150" posy="0" posz="0" rotx="-90" roty="-90" rotz="0" 
-			scalex="3" scaley="5" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
-			<ComponentList>
-				<Component ID="Enemy"/>
-			</ComponentList>
-		</GameObject>	
-		<GameObject name="EnemyCar3" hasRenderer="true" texture="Car/carSUV_COLOR.jpg,Car/carSUV_NORMAL.jpg" model="carSUV.fbx" shader="carSUV" 
-			posx="-100" posy="0" posz="0" rotx="-90" roty="-90" rotz="0" 
-			scalex="3" scaley="5" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
-			<ComponentList>
-				<Component ID="Enemy"/>
-			</ComponentList>
-		</GameObject>	
 		<GameObject name="TestCar4" hasRenderer="true" texture="Car/RegularC_diffuse_green.png,Car/RegularC_normal.png,Car/RegularC_specular.png" model="RegularC.FBX" shader="diffuseNormalSpecMap" 
 			posx="90" posy="100" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="3" scalez="3">
 			<Material diffuse="0.5,0.8,0,1" specularPower="62"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="enemyManager" hasRenderer="false" texture="" model="" shader="" 
+			posx="-150" posy="0" posz="0" 
+			rotx="0" roty="0" rotz="0" 
+			scalex="1" scaley="1" scalez="1">
+			<ComponentList>
+				<Component ID="EnemySpawner"/>
 			</ComponentList>
 		</GameObject>
 	</GameObjectList>

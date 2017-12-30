@@ -9,7 +9,6 @@ class PlayerCar :
 private:
 	CameraComponent* _ThirdPersonCam;
 	CameraComponent* _FirstPersonCam;
-	bool isActive = true;
 	bool firstPerson = false;
 	float strafeAccel = 0;
 	vec3 velocity = vec3(0.0f, 0.0f, 0.0f);

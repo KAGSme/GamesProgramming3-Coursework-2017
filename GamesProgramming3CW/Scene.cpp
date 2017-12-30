@@ -8,6 +8,7 @@
 #include "PlayerCar.h"
 #include "Enemy.h"
 #include "FollowComponent.h"
+#include "EnemySpawner.h"
 
 Scene::Scene(ResourceManager* rM)
 {
@@ -23,6 +24,8 @@ Scene::Scene(ResourceManager* rM)
 	componentIDValues["PlayerCar"] = PLAYER_CAR;
 	componentIDValues["Enemy"] = ENEMY;
 	componentIDValues["FollowComp"] = FOLLOW_COMP;
+	componentIDValues["EnemySpawner"] = ENEMY_SPAWNER;
+
 
 	camera = new Camera();
 }
@@ -41,7 +44,7 @@ GameObject* Scene::AddGameObject(const string& name, const vec3& position, const
 	go->GetTransform()->AddRotationEuler(vec3(0,0,rotation.z));
 	go->GetTransform()->SetScale(scale);
 	go->AttachComponent(r);
-	gameObjects.push_back(go);
+	_newGOs.push_back(go);
 	return go;
 }
 
@@ -54,7 +57,7 @@ GameObject * Scene::AddGameObject(const string & name, const vec3 & position, co
 	go->GetTransform()->AddRotationEuler(vec3(0, rotation.y, 0));
 	go->GetTransform()->AddRotationEuler(vec3(0, 0, rotation.z));
 	go->GetTransform()->SetScale(scale);
-	gameObjects.push_back(go);
+	_newGOs.push_back(go);
 	return go;
 }
 
@@ -146,12 +149,27 @@ void Scene::AttachComponent(string & compID, GameObject * go, XMLElement* attrib
 			string nameGo = attributesElement->Attribute("nameGo");
 			go->AttachComponent(new FollowComponent(vec3(x,y,z), nameGo));
 		}
+		break;
+		case ENEMY_SPAWNER:
+		{
+			go->AttachComponent(new EnemySpawner());
+		}
 	}
 }
 
 void Scene::AddGameObject(GameObject * go)
 {
-	gameObjects.push_back(go);
+	_newGOs.push_back(go);
+}
+
+void Scene::AddNewGameObjects()
+{
+	gameObjects.insert(gameObjects.end(), _newGOs.begin(), _newGOs.end());
+	for (auto iter = _newGOs.begin(); iter != _newGOs.end(); iter++)
+	{
+		(*iter)->Begin();
+	}
+	_newGOs.clear();
 }
 
 void Scene::ReleaseResources()
@@ -169,10 +187,10 @@ void Scene::ReleaseResources()
 
 void Scene::Begin()
 {
+	AddNewGameObjects();
 	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
-		(*iter)->Begin();
 		if (!_skybox)
 		{
 			if ((*iter)->GetComponent("Skybox"))
@@ -181,7 +199,6 @@ void Scene::Begin()
 				gameObjects.erase(gameObjects.begin() + i);
 				iter = gameObjects.begin() + (i - 1);
 			}
-			
 		}
 		i++;
 	}
@@ -193,6 +210,7 @@ void Scene::Update(float deltaTime)
 	{
 		_skybox->Update(deltaTime);
 	}
+
 	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
@@ -222,6 +240,8 @@ void Scene::Update(float deltaTime)
 			}
 		}
 	}
+
+	AddNewGameObjects();
 }
 
 void Scene::VisibilityCheck()

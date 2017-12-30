@@ -8,6 +8,7 @@ public:
 	Enemy();
 	~Enemy();
 	float speed;
+	float life = 10.f;
 
 	void OnBegin();
 	void Update(float deltaTime);

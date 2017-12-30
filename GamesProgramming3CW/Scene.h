@@ -18,7 +18,8 @@ static enum componentID {
 	CAMERA_COMPONENT,
 	PLAYER_CAR,
 	ENEMY,
-	FOLLOW_COMP
+	FOLLOW_COMP,
+	ENEMY_SPAWNER
 };
 
 using namespace tinyxml2;
@@ -34,6 +35,7 @@ private:
 	vector<GameObject*> visibleGOs;
 	vector<GameObject*> transparentGOs;
 	vector<GameObject*> lights;
+	vector<GameObject*> _newGOs;
 	GameObject* mainDirLight;
 	GameObject* _skybox;
 
@@ -50,6 +52,7 @@ public:
 	//adds a creted gameobject from outside the scene to the scene
 	void AddGameObject(GameObject* go);
 	//Deletes all the things!
+	void AddNewGameObjects();
 	void ReleaseResources();
 	void Begin();
 	void Update(float deltaTime);

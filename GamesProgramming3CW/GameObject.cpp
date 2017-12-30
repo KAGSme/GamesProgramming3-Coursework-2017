@@ -43,7 +43,8 @@ void GameObject::Render(Camera *camera)
 {
 	if (!renderer)
 		return;
-
+	if (!_isActive)
+		return;
 	renderer->Ready();
 	ShaderProgram *program = renderer->GetProgram();
 	mat4 model = _transform->GetTransformationMatrix();

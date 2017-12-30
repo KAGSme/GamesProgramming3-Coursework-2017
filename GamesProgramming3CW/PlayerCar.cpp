@@ -18,7 +18,7 @@ PlayerCar::PlayerCar()
 	rightBound = 30; //keep positive as it's to the right of player (in world)
 
 	GameObject* camGO;
-	camGO = Game::GetCurrentScene()->AddGameObject("FollowCamFirsty", vec3(0), vec3(0, -90, 0), vec3(1));
+	camGO = Game::GetCurrentScene()->AddGameObject("FollowCamFirst", vec3(0), vec3(0, -90, 0), vec3(1));
 	_FirstPersonCam = new CameraComponent();
 	camGO->AttachComponent(_FirstPersonCam);
 	camGO->AttachComponent(new FollowComponent(vec3(-4, 1, 0), "PlayerCar"));
@@ -56,7 +56,7 @@ void PlayerCar::OnBegin()
 
 void PlayerCar::Update(float deltaTime)
 {
-	if (isActive)
+	if (pGameObject->GetActive())
 	{
 		accel += strafeAccel * newRight * deltaTime;
 		velocity += accel;
@@ -83,7 +83,11 @@ void PlayerCar::AddHealth(int amount)
 {
 	health += amount;
 
-	if (health <= 0) cout << "Player Death" << endl;
+	if (health <= 0)
+	{
+		cout << "Player Death" << endl;
+		pGameObject->SetActive(false);
+	}
 }
 
 void PlayerCar::switchCam(bool state)

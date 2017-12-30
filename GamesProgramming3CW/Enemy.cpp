@@ -6,7 +6,8 @@
 
 Enemy::Enemy()
 {
-	speed = 8.0f;
+	speed = 15.f;
+	life = 20.f;
 }
 
 
@@ -26,7 +27,12 @@ void Enemy::Update(float deltaTime)
 {
 	vec3 directtion = pGameObject->GetTransform()->GetForward();
 	pGameObject->GetTransform()->AddPosition(speed * directtion * deltaTime);
-	//cout << pGameObject->GetTransform()->GetRotationEuler().x << " " << pGameObject->GetTransform()->GetRotationEuler().y << " " << pGameObject->GetTransform()->GetRotationEuler().z << endl;
+
+	life -= deltaTime;
+	if(life < 0)
+	{
+		pGameObject->Destroy();
+	}
 }
 
 void Enemy::OnOverlap(GameObject * other)
