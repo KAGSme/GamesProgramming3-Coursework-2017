@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2main.lib;libfbxsdk.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2main.lib;libfbxsdk.lib;opengl32.lib;glu32.lib;OpenAL32.lib;alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -129,12 +129,16 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraBehaviour.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="coin.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="CommonXml.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DefRenderer.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyRC.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="FollowComponent.h" />
     <ClInclude Include="Font.h" />
@@ -168,11 +172,15 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraBehaviour.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="coin.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="CommonXml.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DefRenderer.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyRC.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="FollowComponent.cpp" />
     <ClCompile Include="Font.cpp" />

@@ -23,7 +23,7 @@ private:
 	Material* _material = new Material();
 	bool _pendingDestroy = false;
 	bool _isActive = true;
-
+	float _aliveTime = 0.f;
 public:
 	GameObject();
 	~GameObject();
@@ -48,6 +48,8 @@ public:
 
 	void SetActive(bool active) { _isActive = active; }
 	bool GetActive() { return _isActive; }
+
+	float GetAliveTime() { return _aliveTime; }
 
 	void AttachComponent(BaseComponent *com);
 	BaseComponent* GetComponent(string componentType);

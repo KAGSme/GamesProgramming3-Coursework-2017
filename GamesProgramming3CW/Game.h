@@ -20,7 +20,7 @@ private:
 	int fpsCounter = 0;
 	int fpsDisplay = 0;
 	float fpsTimer = 0;
-	bool debugMode = false;
+	static bool debugMode;
 	bool negMode = false;
 	SDL_Window *_window;
 	GameState _currentGameState;
@@ -59,6 +59,7 @@ public:
 	static Scene* GetCurrentScene() { return currentScene; }
 	static ResourceManager* GetResourceManager() { return resourceManager; }
 	static float GetGlobalDeltaTime() { return _globaDeltaTime; }
+	static bool GetDebugMode() { return debugMode; }
 };
 
 #endif

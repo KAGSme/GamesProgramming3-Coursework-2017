@@ -8,11 +8,13 @@ struct Material
 public:
 	vec4 diffuseColor;
 	float specPower;
+	float specIntensity;
 
 	Material() 
 	{
-		specPower = 80;
+		specPower = 32;
 		diffuseColor = vec4(0.8, 0.8, 0.8, 0.8);
+		specIntensity = 0.5;
 	}
 };
 

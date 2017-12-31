@@ -299,8 +299,8 @@ void Input::UpdateInputAxis()
 
 		for (auto &gamePadAxis : iter.gamepadAxis)
 		{
-			if (GetGamepadAxis(gamePadAxis) > Pos)Pos = GetGamepadAxis(gamePadAxis);
-			else if (GetGamepadAxis(gamePadAxis) < Neg) Neg = GetGamepadAxis(gamePadAxis);
+			if (GetGamepadAxis(gamePadAxis) > Pos && GetGamepadAxis(gamePadAxis) > 0.1)Pos = GetGamepadAxis(gamePadAxis);
+			else if (GetGamepadAxis(gamePadAxis) < Neg && GetGamepadAxis(gamePadAxis) < -0.1) Neg = GetGamepadAxis(gamePadAxis);
 		}
 
 		iter.state = Pos + Neg;

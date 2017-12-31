@@ -6,7 +6,7 @@
 
 Enemy::Enemy()
 {
-	speed = 15.f;
+	speed = 30.f;
 	life = 20.f;
 }
 

@@ -198,6 +198,7 @@ XMLError SceneManager::LoadScene(int sceneOrder, Scene* currentScene)
 		{
 			go->GetMaterial()->diffuseColor = CommonXml::GetVec4FromString(gameObjectElement->Attribute("diffuse"));
 			go->GetMaterial()->specPower = stof(gameObjectElement->Attribute("specularPower"));
+			go->GetMaterial()->specIntensity = stof(gameObjectElement->Attribute("specularIntensity"));
 		}
 
 		gameObjectElement = sceneItem->FirstChildElement("ComponentList");

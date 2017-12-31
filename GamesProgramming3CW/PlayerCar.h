@@ -20,6 +20,10 @@ private:
 	int health = 3;
 	float rightBound;
 	float leftBound;
+	float _timeScore = 0;
+	int _otherScore = 0;
+	int _finalScore = 0;
+	bool debug = false;
 
 public:
 	PlayerCar();
@@ -27,8 +31,13 @@ public:
 
 	void OnBegin();
 	void Update(float deltaTime);
+	void OnRender(Camera *camera);
 	void AddHealth(int amount);
+	void AddScore(int amount) { _otherScore += amount; }
+	void SetScore(int score) { _otherScore = score; _timeScore = 0.f; }
+	int GetScore() { return _finalScore; }
 
 	void switchCam(bool state);
+	void FreeCam(bool state);
 };
 

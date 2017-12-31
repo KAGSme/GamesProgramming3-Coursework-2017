@@ -17,6 +17,10 @@
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL_ttf.h>
 
+#include <OpenAL\al.h>
+#include <OpenAL\alc.h>
+#include <OpenAL\alut.h>
+
 //maths
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

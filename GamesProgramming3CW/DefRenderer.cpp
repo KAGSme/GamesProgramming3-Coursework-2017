@@ -229,6 +229,8 @@ void DefRenderer::LightPass(Camera *cam, Renderer *r)
 	r->GetProgram()->SetUniform("Color", &color);
 	//float maxDistance = r->GetParentGO()->GetTransform()->GetScale().x;
 	float maxDistance = r->GetModel()->GetBoundingSphere(r->GetParentGO()->GetTransform()->GetTransformationMatrix()).rad;
+	if (l->GetLightType() == E_LightState::SPOT)
+		maxDistance *= 2;
 	r->GetProgram()->SetUniform("MaxDistance", &maxDistance);
 	r->GetProgram()->SetUniform("cameraPosition", &cam->GetParentTransform()->GetPosition());
 	r->GetProgram()->SetUniform("screenSize", &vec2(SCREEN_W, SCREEN_H));

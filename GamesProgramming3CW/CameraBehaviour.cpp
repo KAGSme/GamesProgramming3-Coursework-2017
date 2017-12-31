@@ -12,7 +12,7 @@ CameraBehaviour::CameraBehaviour(Camera *c, float tS)
 	baseSpeed = speed;
 	boostSpeed = baseSpeed * 4;
 	mouseSensitivity = 0.2f;
-	aimSensitivity = 80;
+	aimSensitivity = 30;
 }
 
 CameraBehaviour::~CameraBehaviour()
@@ -66,14 +66,11 @@ void CameraBehaviour::Update(float deltaTime)
 	if (hover > 0.2f || hover < -0.2f)
 		pGameObject->GetTransform()->AddPosition(up * deltaTime * speed * hover);
 
-	if (aimVertical > 0.2f || aimVertical < -0.2f)
-		//pGameObject->GetTransform()->AddWorldRotationEulerXY(aimVertical * aimSensitivity * deltaTime, 0);
-
-	if (aimHorizontal > 0.2f || aimHorizontal < -0.2f)
-		pGameObject->GetTransform()->AddRotationEuler(vec3(0, aimHorizontal * aimSensitivity * deltaTime, 0));
-
 	//get mouse movement
-	ivec2 deltaPos = Input::GetMouseDelta();
+	vec2 deltaPos = Input::GetMouseDelta();
+	if (aimVertical > 0.2f || aimVertical < -0.2f || aimHorizontal > 0.2f || aimHorizontal < -0.2f)
+		deltaPos = vec2(aimHorizontal * aimSensitivity, aimVertical * aimSensitivity);
+	
 	float deltaPitch = (float)deltaPos.y * mouseSensitivity;
 	float deltaYaw = (float)deltaPos.x * mouseSensitivity;
 
@@ -88,9 +85,9 @@ void CameraBehaviour::Update(float deltaTime)
 
 	vec3 gRot = pGameObject->GetTransform()->GetRotationEuler();
 
-	char buffer[50];
-	sprintf_s(buffer, "Camera Rotation: %2.2f %2.2f %2.2f", gRot.x, gRot.y, gRot.z);
-	Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 90, 325, 25 });
+	//char buffer[50];
+	//sprintf_s(buffer, "Camera Rotation: %2.2f %2.2f %2.2f", gRot.x, gRot.y, gRot.z);
+	//Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 90, 325, 25 });
 }
 
 void CameraBehaviour::InputAxisVertical(float state)

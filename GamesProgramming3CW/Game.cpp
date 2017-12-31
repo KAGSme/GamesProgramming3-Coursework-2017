@@ -10,6 +10,7 @@ uint Game::drawCalls;
 Scene* Game::currentScene;
 ResourceManager* Game::resourceManager;
 float Game::_globaDeltaTime;
+bool Game::debugMode;
 
 #define SKYBOX_DIST 5
 
@@ -142,7 +143,7 @@ int Game::Run()
 void Game::Loop()
 {
 
-	Uint32 oldTicks = 0;
+	Uint32 oldTicks = SDL_GetTicks();
 	SDL_Event event;
 
 	while (_currentGameState != GameState::EXIT)
@@ -289,15 +290,11 @@ void Game::Update(float deltaTime)
 	DefRenderer::SetMainLightDir(dynamic_cast<Light*>(currentScene->GetMainDirLight()->GetComponent("Light"))->GetLightDirection());
 	DefRenderer::SetMainLightColor(vec3(dynamic_cast<Light*>(currentScene->GetMainDirLight()->GetComponent("Light"))->GetColor()));
 	  
-	if (Input::GetKeyDown(SDLK_f))
+	if (Input::GetKeyDown(SDLK_F1))
 	{
 		debugMode = !debugMode;
-		if (debugMode)
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		else
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	if (Input::GetKeyDown(SDLK_b)) 
+	if (Input::GetKeyDown(SDLK_F2)) 
 		negMode = !negMode;
 
 	fpsCounter++;
@@ -307,15 +304,18 @@ void Game::Update(float deltaTime)
 		fpsCounter = fpsTimer = 0;
 	}
 
-	char fpsBuffer[30];
-	sprintf_s(fpsBuffer, "FPS: %d", fpsDisplay);
-	string fpsString(fpsBuffer);
-	resourceManager->GetFont("OratorStd.otf")->Render(fpsString, { 0, 0, 100, 25 });
+	if (debugMode)
+	{
+		char fpsBuffer[30];
+		sprintf_s(fpsBuffer, "FPS: %d", fpsDisplay);
+		string fpsString(fpsBuffer);
+		resourceManager->GetFont("OratorStd.otf")->Render(fpsString, { 0, 0, 100, 25 });
 
-	char performanceBuffer[90];
-	sprintf_s(performanceBuffer, "Input: %dms, Update: %dms, Render: %dms", inputTime, updateTime, renderTime);
-	string performanceString(performanceBuffer);
-	resourceManager->GetFont("OratorStd.otf")->Render(performanceString, { 0, (int)SCREEN_H - 25, 325, 25 });
+		char performanceBuffer[90];
+		sprintf_s(performanceBuffer, "Input: %dms, Update: %dms, Render: %dms", inputTime, updateTime, renderTime);
+		string performanceString(performanceBuffer);
+		resourceManager->GetFont("OratorStd.otf")->Render(performanceString, { 0, (int)SCREEN_H - 25, 325, 25 });
+	}
 }
 
 bool Comparer(GameObject *a, GameObject *b)
@@ -391,12 +391,15 @@ void Game::Render(float deltaTime)
 		PostProcessing::RenderResult();
 	}
 
-	char msg[50];
-	sprintf_s(msg, "verts:%u", verticesRendered);
-	Font* tF = resourceManager->GetFont("OratorStd.otf");
-	tF->Render(string(msg), { 0, 25, 100, 25 });
-	sprintf_s(msg, "objts:%u(%u)", currentScene->GetVisibleGOCount(), currentScene->GetGOCount());
-	tF->Render(string(msg), { 0, 50, 100, 25 });
+	if (debugMode)
+	{
+		char msg[50];
+		sprintf_s(msg, "verts:%u", verticesRendered);
+		Font* tF = resourceManager->GetFont("OratorStd.otf");
+		tF->Render(string(msg), { 0, 25, 100, 25 });
+		sprintf_s(msg, "objts:%u(%u)", currentScene->GetVisibleGOCount(), currentScene->GetGOCount());
+		tF->Render(string(msg), { 0, 50, 100, 25 });
+	}
 
 	resourceManager->FlushFonts(deltaTime);
 }

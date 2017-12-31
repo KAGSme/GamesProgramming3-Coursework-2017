@@ -94,8 +94,8 @@ void Light::Update(float deltaTime)
 		vec3 newPos = Game::GetCurrentScene()->GetSceneCamera()->GetParentTransform()->GetPosition();
 		pGameObject->GetTransform()->SetPosition(vec3(newPos.x, newPos.y + 100, newPos.z)); //keeps shadow camera above regular camera at all times.
 
-		char buffer[50];  
-		sprintf_s(buffer, "DIR LIGHT direction: %.2f %.2f %.2f", direction.x, direction.y, direction.z);
-		Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 60, 325, 25 });
+		//char buffer[50];  
+		//sprintf_s(buffer, "DIR LIGHT direction: %.2f %.2f %.2f", direction.x, direction.y, direction.z);
+		//Game::GetResourceManager()->GetFont("OratorStd.otf")->Render(string(buffer), { 0, (int)SCREEN_H - 60, 325, 25 });
 	}
 }

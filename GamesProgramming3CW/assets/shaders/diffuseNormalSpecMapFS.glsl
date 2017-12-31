@@ -16,6 +16,7 @@ uniform sampler2D texture3; //shadowMap
 
 uniform vec3 lightDirection;
 uniform float specularPower;
+uniform float specularIntensity;
 
 vec3 worldNormal;
 
@@ -55,7 +56,7 @@ void main()
 	
 	float visibility = ShadowCalculation(shadowCoordsOut);
 
-	FragColor = vec4(texture(texture0, vertexTexCoordsOut).rgb, texture(texture2, vertexTexCoordsOut).r);
+	FragColor = vec4(texture(texture0, vertexTexCoordsOut).rgb, texture(texture2, vertexTexCoordsOut).r * specularIntensity);
 	
 	Position.a = (specularPower); //specular
 	

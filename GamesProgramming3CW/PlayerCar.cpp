@@ -5,8 +5,8 @@
 
 void PlayerCar::strafe(float state)
 {
+	if(!debug)
 	strafeAccel = state * Game::GetGlobalDeltaTime() * 1000;
-	cout << pGameObject->GetTransform()->GetPosition().z << endl;
 }
 
 PlayerCar::PlayerCar()
@@ -14,8 +14,8 @@ PlayerCar::PlayerCar()
 	velocity = vec3(0, 0, 0);
 	friction = 10;
 	maxStrafeVel = 2;
-	leftBound = -30; //keep negative as it's to the left of player (in world)
-	rightBound = 30; //keep positive as it's to the right of player (in world)
+	leftBound = -40; //keep negative as it's to the left of player (in world)
+	rightBound = 40; //keep positive as it's to the right of player (in world)
 
 	GameObject* camGO;
 	camGO = Game::GetCurrentScene()->AddGameObject("FollowCamFirst", vec3(0), vec3(0, -90, 0), vec3(1));
@@ -38,18 +38,27 @@ PlayerCar::~PlayerCar()
 	InputAction* iaS = Input::GetInputActionState("SwitchCam");
 	if (iaH)
 		__unhook(&InputAction::InputActionChange, iaS, &PlayerCar::switchCam);
+	InputAction* iaF = Input::GetInputActionState("Debug");
+	if (iaF)
+		__unhook(&InputAction::InputActionChange, iaF, &PlayerCar::FreeCam);
+
 }
 
 void PlayerCar::OnBegin()
 {
+	//model for player car is rotated so we rotate it and set up a new right direction
 	newRight = -pGameObject->GetTransform()->GetUp();
 	InputAxis* iaH = Input::GetInputAxisState("HorizontalCar");
 	if (iaH)
 		__hook(&InputAxis::InputAxisChange, iaH, &PlayerCar::strafe);
 
 	InputAction* iaS = Input::GetInputActionState("SwitchCam");
-	if (iaH)
+	if (iaS)
 		__hook(&InputAction::InputActionChange, iaS, &PlayerCar::switchCam);
+
+	InputAction* iaF = Input::GetInputActionState("Debug");
+	if (iaF)
+		__hook(&InputAction::InputActionChange, iaF, &PlayerCar::FreeCam);
 
 	pGameObject->AttachCollider(new SphereCol(3.0f));
 }
@@ -76,7 +85,18 @@ void PlayerCar::Update(float deltaTime)
 			pGameObject->GetTransform()->GetPosition().x, 
 			pGameObject->GetTransform()->GetPosition().y, 
 			clamp(pGameObject->GetTransform()->GetPosition().z,leftBound+radius,rightBound-radius)));
+
+		_timeScore += deltaTime * 6;
+		_finalScore = int(_timeScore) * 50 + _otherScore;
 	}
+}
+
+void PlayerCar::OnRender(Camera *camera)
+{
+	string score = "Score: " + to_string(_finalScore);
+	int scoreLength = score.size();
+	Game::GetResourceManager()->GetFont("Regensburg.ttf")->Render("Health: " + to_string(health), { 0, (int)SCREEN_H - 30, 100, 25 });
+	Game::GetResourceManager()->GetFont("Regensburg.ttf")->Render(score, { 0, (int)SCREEN_H - 60, static_cast<__int64>(scoreLength) * 12, 25 });
 }
 
 void PlayerCar::AddHealth(int amount)
@@ -92,7 +112,7 @@ void PlayerCar::AddHealth(int amount)
 
 void PlayerCar::switchCam(bool state)
 {
-	if (state)
+	if (state && pGameObject->GetActive() && !debug)
 	{
 		firstPerson = !firstPerson;
 		if (firstPerson)
@@ -100,5 +120,22 @@ void PlayerCar::switchCam(bool state)
 			_FirstPersonCam->SetSceneTargetCameraToThis();
 		}
 		else _ThirdPersonCam->SetSceneTargetCameraToThis();
+	}
+}
+
+void PlayerCar::FreeCam(bool state)
+{
+	if (state)
+	{
+		debug = !debug;
+		if (debug)
+		{
+			GameObject* go = Game::GetCurrentScene()->GetGameObject("CameraBehaviourObject");
+			if (go)
+			{
+				dynamic_cast<CameraComponent*>(go->GetComponent("CameraComponent"))->SetSceneTargetCameraToThis();
+			}
+		}
+		else switchCam(true);
 	}
 }

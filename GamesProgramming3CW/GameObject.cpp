@@ -8,8 +8,10 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	if (!renderer)
-		delete renderer;
+	if (renderer) delete renderer;
+	delete _transform;
+	if (_col) delete _col;
+	if (_material) delete _material;
 }
 
 void GameObject::AttachCollider(SphereCol * newCol)
@@ -32,6 +34,7 @@ void GameObject::Begin()
 
 void GameObject::Update(float deltaTime)
 {
+	_aliveTime += deltaTime;
 	if (_col != NULL)_col->update(_transform->GetPosition());
 
 	for (auto it = components.begin(); it != components.end(); it++) {
@@ -65,6 +68,10 @@ void GameObject::Render(Camera *camera)
 	program->SetUniform("diffuseMaterialColor", &_material->diffuseColor);
 
 	program->SetUniform("specularPower", &_material->specPower);
+
+	program->SetUniform("specularIntensity", &_material->specIntensity);
+
+	program->SetUniform("aliveTime", &_aliveTime);
 
 	float heightScale = 5.0f;
 	program->SetUniform("heightScale", &heightScale);

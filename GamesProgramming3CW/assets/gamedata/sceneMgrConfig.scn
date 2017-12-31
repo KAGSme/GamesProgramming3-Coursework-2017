@@ -1,5 +1,5 @@
 <SceneManagerConfiguration>
     <SceneDirectories>
-		<Scene order="0">ShadowLightingTest.scn</Scene>
+		<Scene order="0">mainWithRoad.scn</Scene>
     </SceneDirectories>
 </SceneManagerConfiguration>
