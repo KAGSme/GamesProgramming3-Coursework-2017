@@ -61,6 +61,7 @@ void PlayerCar::OnBegin()
 		__hook(&InputAction::InputActionChange, iaF, &PlayerCar::FreeCam);
 
 	pGameObject->AttachCollider(new SphereCol(3.0f));
+	Game::GetResourceManager()->GetSound("carEngine.wav")->playAudio(AL_NONE);
 }
 
 void PlayerCar::Update(float deltaTime)
@@ -88,6 +89,10 @@ void PlayerCar::Update(float deltaTime)
 
 		_timeScore += deltaTime * 6;
 		_finalScore = int(_timeScore) * 50 + _otherScore;
+
+		Sound* sound = Game::GetResourceManager()->GetSound("carEngine.wav");
+		if (sound->GetState() == AL_STOPPED)
+			sound->playAudio(AL_NONE);
 	}
 }
 
@@ -106,8 +111,15 @@ void PlayerCar::AddHealth(int amount)
 	if (health <= 0)
 	{
 		cout << "Player Death" << endl;
+		Game::GetResourceManager()->GetSound("carEngine.wav")->stopAudio();
+		Game::GetResourceManager()->GetSound("Death.wav")->playAudio(AL_NONE);
+		Game::GetResourceManager()->GetSound("end-game-fail.wav")->playAudio(AL_NONE);
 		pGameObject->SetActive(false);
 	}
+}
+
+void PlayerCar::Reset()
+{
 }
 
 void PlayerCar::switchCam(bool state)

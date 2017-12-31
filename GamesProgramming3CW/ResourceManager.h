@@ -4,6 +4,7 @@
 #include "common.h"
 #include "GameObject.h"
 #include "Font.h"
+#include "Sound.h"
 #include <map>
 
 class ResourceManager 
@@ -13,6 +14,7 @@ map<string, ShaderProgram*> shaderPrograms;
 map<string, Texture*> textures;
 map<string, Model*> models;
 map<string, Font*> fonts;
+map<string, Sound*> sounds;
 
 Texture* currentTexture;
 Shader* currentShader;
@@ -33,10 +35,13 @@ void AddTexture(const string& name, Texture* t) { textures[name] = t; }
 void AddFont(const string& filename);
 void AddFont(const string& name, Font* f) { fonts[name] = f; }
 
+void AddSound(const string& filename);
+
 ShaderProgram* GetShader(const string& name);
 Texture* GetTexture(const string& name);
 Model* GetModel(const string& name);
 Font* GetFont(const string& name);
+Sound* GetSound(const string& name);
 
 void FlushFonts(float deltaTime);
 //Deletes all the things!

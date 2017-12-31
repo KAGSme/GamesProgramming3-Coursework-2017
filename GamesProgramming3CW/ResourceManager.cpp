@@ -29,6 +29,11 @@ void ResourceManager::AddFont(const string & filename)
 	fonts[filename] = new Font(FONT_PATH + filename);
 }
 
+void ResourceManager::AddSound(const string & filename)
+{
+	sounds[filename] = new Sound((SOUND_PATH + filename).c_str());
+}
+
 ShaderProgram* ResourceManager::GetShader(const string& name)
 {
 	return shaderPrograms[name];
@@ -49,6 +54,11 @@ Font * ResourceManager::GetFont(const string & name)
 	return fonts[name];
 }
 
+Sound * ResourceManager::GetSound(const string & name)
+{
+	return sounds[name];
+}
+
 void ResourceManager::FlushFonts(float deltaTime)
 {
 	for (auto iter = fonts.begin(); iter != fonts.end(); iter++)
@@ -64,5 +74,8 @@ void ResourceManager::ReleaseResources()
 		delete iter->second;
 
 	for (auto iter = fonts.begin(); iter != fonts.end(); iter++)
+		delete iter->second;
+
+	for (auto iter = sounds.begin(); iter != sounds.end(); iter++)
 		delete iter->second;
 }

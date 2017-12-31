@@ -74,8 +74,8 @@
     <LibraryPath>$(SolutionDir)dependencies/libs/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)dependencies/include/;$(SolutionDir)dependencies/include/FBX;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dependencies/libs/;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dependencies/include/;$(SolutionDir)dependencies/include/FBX;C:\Program Files\OpenAL 1.1 SDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies/libs/;C:\Program Files\OpenAL 1.1 SDK\libs\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

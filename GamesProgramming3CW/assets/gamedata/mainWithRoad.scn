@@ -24,6 +24,7 @@
 		<Texture>coin-texture.jpg</Texture>
 		<Texture>coin-Spec.png</Texture>
 		<Texture>coin-Normal.png</Texture>
+		<Texture>2107-normal.jpg</Texture>
 	</TextureList>
 	<ShaderList>
 		<Shader vert="specularVS.glsl" frag="specularFS.glsl">Specular</Shader>
@@ -42,6 +43,15 @@
 		<Font>OratorStd.otf</Font>
 		<Font>Regensburg.ttf</Font>
 	</FontList>
+	<SoundList>
+		<Sound>Slammin.wav</Sound>
+		<Sound>carEngine.wav</Sound>
+		<Sound>coinPickUp.wav</Sound>
+		<Sound>hit1.wav</Sound>
+		<Sound>hit2.wav</Sound>
+		<Sound>Death.wav</Sound>
+		<Sound>end-game-fail.wav</Sound>
+	</SoundList>
 	<GameObjectList>	
 		<GameObject name="Sun" hasRenderer="false" texture="texture.png" model="" shader="Specular" 
 			posx="0" posy="100" posz="0" rotx="120" roty="0" rotz="0" 
@@ -143,7 +153,7 @@
 		<GameObject name="Road" hasRenderer="true" texture="road_road_0021_01_tiled.jpg,road_road_0021_01_tiled_SpecularMap.png" model="Plane.FBX" shader="road"  
 			posx="0" posy="-4" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="3" scalez="3">
-			<Material diffuse="0.4,0.4,0.4,1" specularPower="32" specularIntensity="1"/>
+			<Material diffuse="0.4,0.4,0.4,1" specularPower="62" specularIntensity="1"/>
 			<ComponentList>	
 			</ComponentList>
 		</GameObject>	
@@ -153,6 +163,24 @@
 			<Material diffuse="0.5,0.8,0,1" specularPower="62" specularIntensity="0.2"/>
 			<ComponentList>
 				<Component ID="MoveGOBehaviour"/>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="PointLight3" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="85" posy="90" posz="-5" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="1,0,0,1" state="point"/>
+				</Component>
+			</ComponentList>
+		</GameObject>
+		<GameObject name="PointLight4" hasRenderer="true" texture="" model="sphere.fbx" shader="PointLight" 
+			posx="85" posy="110" posz="5" rotx="0" roty="0" rotz="0" 
+			scalex="20" scaley="20" scalez="20">
+			<ComponentList>
+				<Component ID="Light">
+					<Attributes color="0,0,1,1" state="point"/>
+				</Component>
 			</ComponentList>
 		</GameObject>
 		<GameObject name="enemyManager" hasRenderer="false" texture="" model="" shader="" 

@@ -26,10 +26,16 @@ void EnemySpawner::OnBegin()
 	InputAction* ia = Input::GetInputActionState("Restart");
 	if (ia)
 		__hook(&InputAction::InputActionChange, ia, &EnemySpawner::ResetGame);
+
+	Game::GetResourceManager()->GetSound("Slammin.wav")->playAudio(AL_NONE);
 }
 
 void EnemySpawner::Update(float deltaTime)
 {
+	Sound* sound = Game::GetResourceManager()->GetSound("Slammin.wav");
+	if (sound->GetState() == AL_STOPPED)
+		sound->playAudio(AL_NONE);
+
 	if (!pGameObject->GetActive())
 	{
 		Game::GetResourceManager()->GetFont("Regensburg.ttf")->Render("Game Over!!! Restart By pressing R", { 100, (int)SCREEN_H/2, 650, 50 });

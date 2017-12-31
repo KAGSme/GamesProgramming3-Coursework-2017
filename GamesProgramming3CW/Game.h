@@ -27,6 +27,10 @@ private:
 	SDL_GLContext _glContext;
 	bool _paused = false;
 	SDL_GameController* _gGameController;
+
+	//sound
+	ALCcontext *m_OALContext;
+	ALCdevice *m_OALDevice;
 	
 	int inputTime = 0;
 	int inputTicks = 0;

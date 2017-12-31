@@ -39,7 +39,9 @@ void coin::OnOverlap(GameObject * other)
 	PlayerCar* pc = dynamic_cast<PlayerCar*>(other->GetComponent("PlayerCar"));
 	if (pc != NULL)
 	{
-		pGameObject->Destroy();
+		Game::GetResourceManager()->GetSound("coinPickUp.wav")->playAudio(AL_NONE);
 		pc->AddScore(1000);
+
+		pGameObject->Destroy();
 	}
 }

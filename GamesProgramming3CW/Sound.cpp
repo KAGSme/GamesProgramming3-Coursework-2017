@@ -23,6 +23,17 @@ Sound::~Sound()
 	cleanUp();
 }
 
+Sound::Sound(LPCSTR filename)
+{
+	m_OALData = NULL;           //data for the buffer
+	m_OALFrequency = 0;     //frequency
+	m_OALBitRate = 0;		  // Bit Rate
+	m_OALLength = 0;		  // Length
+	m_OALBuffer = 0;         // Buffer
+
+	loadWAVFile(filename);
+}
+
 void Sound::loadWAVFile(LPCSTR filename)
 {
 	// Check for EAX 2.0 support
@@ -76,7 +87,7 @@ void Sound::cleanUp()
 {
 	int state;
 	alGetSourcei(m_OALSource, AL_SOURCE_STATE, &state);
-	if (state == AL_PLAYING)
+	if (state == AL_PLAYING || state != AL_STOPPED)
 	{
 		stopAudio();
 	}
@@ -88,7 +99,11 @@ void Sound::cleanUp()
 
 	//Disable context
 	alcMakeContextCurrent(NULL);
+}
 
-	//release the data
-	delete m_OALData;
+int Sound::GetState()
+{
+	int state;
+	alGetSourcei(m_OALSource, AL_SOURCE_STATE, &state);
+	return state;
 }

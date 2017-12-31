@@ -17,9 +17,9 @@
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL_ttf.h>
 
-#include <OpenAL\al.h>
-#include <OpenAL\alc.h>
-#include <OpenAL\alut.h>
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
+#include <OpenAL/alut.h>
 
 //maths
 #include <glm/glm.hpp>
@@ -35,6 +35,7 @@ const string TEXTURE_PATH = ASSET_PATH + "textures/";
 const string FONT_PATH = ASSET_PATH + "fonts/";
 const string MODEL_PATH = ASSET_PATH + "models/";
 const string GAMEDATA_PATH = ASSET_PATH + "gamedata/";
+const string SOUND_PATH = ASSET_PATH + "sounds/";
 
 void checkError(const char *file, int line);
 

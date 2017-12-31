@@ -48,9 +48,12 @@ public:
 	Sound();
 	~Sound();
 
+	Sound(LPCSTR filename);
+
 	void loadWAVFile(LPCSTR filename);
 	void playAudio( ALboolean sndLoop);
 	void stopAudio();
 	void cleanUp();
+	int GetState();
 };
 #endif

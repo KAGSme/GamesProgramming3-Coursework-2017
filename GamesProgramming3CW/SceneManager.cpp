@@ -131,6 +131,25 @@ XMLError SceneManager::LoadScene(int sceneOrder, Scene* currentScene)
 		sceneItem = sceneItem->NextSiblingElement("Shader");
 	}
 
+	sceneData = sceneRoot->FirstChildElement("SoundList");
+	if (!sceneData)
+		return XML_ERROR_PARSING_ELEMENT;
+
+	count = 0;
+	for (XMLElement *elem = sceneData->FirstChildElement("Sound");
+		elem; elem = elem->NextSiblingElement("Sound"))
+		count++;
+
+	curr = 1;
+	sceneItem = sceneData->FirstChildElement("Sound");
+	while (sceneItem)
+	{
+		string name = sceneItem->GetText();
+		printf("Loading sound %d/%d - %s\n", curr++, count, name.c_str());
+		resourceManager->AddSound(name);
+		sceneItem = sceneItem->NextSiblingElement("Sound");
+	}
+
 	sceneData = sceneRoot->FirstChildElement("GameObjectList");
 	if (!sceneData)
 		return XML_ERROR_PARSING_ELEMENT;

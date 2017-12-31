@@ -36,6 +36,7 @@ public:
 	void AddScore(int amount) { _otherScore += amount; }
 	void SetScore(int score) { _otherScore = score; _timeScore = 0.f; }
 	int GetScore() { return _finalScore; }
+	void Reset();
 
 	void switchCam(bool state);
 	void FreeCam(bool state);
