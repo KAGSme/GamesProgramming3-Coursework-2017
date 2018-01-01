@@ -332,12 +332,12 @@ void Game::Update(float deltaTime)
 		char fpsBuffer[30];
 		sprintf_s(fpsBuffer, "FPS: %d", fpsDisplay);
 		string fpsString(fpsBuffer);
-		resourceManager->GetFont("OratorStd.otf")->Render(fpsString, { 0, 0, 100, 25 });
+		resourceManager->GetFont("OratorStd.otf")->Render(fpsString, { (int)SCREEN_W-100, 0, 100, 25 });
 
 		char performanceBuffer[90];
 		sprintf_s(performanceBuffer, "Input: %dms, Update: %dms, Render: %dms", inputTime, updateTime, renderTime);
 		string performanceString(performanceBuffer);
-		resourceManager->GetFont("OratorStd.otf")->Render(performanceString, { 0, (int)SCREEN_H - 25, 325, 25 });
+		resourceManager->GetFont("OratorStd.otf")->Render(performanceString, { (int)SCREEN_W-325, (int)SCREEN_H - 25, 325, 25 });
 	}
 }
 
@@ -419,9 +419,9 @@ void Game::Render(float deltaTime)
 		char msg[50];
 		sprintf_s(msg, "verts:%u", verticesRendered);
 		Font* tF = resourceManager->GetFont("OratorStd.otf");
-		tF->Render(string(msg), { 0, 25, 100, 25 });
+		tF->Render(string(msg), { (int)SCREEN_W-100, 25, 100, 25 });
 		sprintf_s(msg, "objts:%u(%u)", currentScene->GetVisibleGOCount(), currentScene->GetGOCount());
-		tF->Render(string(msg), { 0, 50, 100, 25 });
+		tF->Render(string(msg), { (int)SCREEN_W-100, 50, 100, 25 });
 	}
 
 	resourceManager->FlushFonts(deltaTime);

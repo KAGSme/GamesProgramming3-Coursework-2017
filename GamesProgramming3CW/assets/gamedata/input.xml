@@ -1,6 +1,6 @@
 <Input>
 	<Actions>
-		<IA title = "Debug" keyboard = "k,p" gamepad = "gamepad_y"/>
+		<IA title = "Debug" keyboard = "tab,f" gamepad = "gamepad_y"/>
 		<IA title = "SpeedBoost" keyboard = "l_shift" gamepad = "gamepad_a"/>
 		<IA title = "SpeedBoostToggle" keyboard = "x" gamepad = "gamepad_ls"/>
 		
