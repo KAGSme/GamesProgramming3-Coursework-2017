@@ -19,7 +19,9 @@ Sound::Sound()
 
 Sound::~Sound()
 {
-
+	InputAction* iaS = Input::GetInputActionState("Mute");
+	if (iaS)
+		__unhook(&InputAction::InputActionChange, iaS, &Sound::Mute);
 	cleanUp();
 }
 
@@ -58,6 +60,10 @@ void Sound::loadWAVFile(LPCSTR filename)
 
 	//release the data
 	alutUnloadWAV(m_OALFormat, m_OALData, m_OALBufferLen, m_OALFrequency);
+
+	InputAction* iaS = Input::GetInputActionState("Mute");
+	if (iaS)
+		__hook(&InputAction::InputActionChange, iaS, &Sound::Mute);
 }
 
 void Sound::LoadWAVInfo(ifstream &filename, string &name, 	unsigned int &size)
@@ -71,6 +77,7 @@ void Sound::LoadWAVInfo(ifstream &filename, string &name, 	unsigned int &size)
 
 void Sound::playAudio(ALboolean sndLoop)
 {
+	if (_muted) return;
 	alSourcei(m_OALSource, sndLoop, AL_TRUE);
 
 	//play
@@ -81,6 +88,18 @@ void Sound::stopAudio()
 {
 	//to stop
 	alSourceStop(m_OALSource);
+}
+
+void Sound::Mute(bool state)
+{
+	if (!state) return;
+
+	_muted = !_muted;
+	if (_muted)
+	{
+		alSourcef(m_OALSource, AL_GAIN, 0.0f);
+	}
+	else alSourcef(m_OALSource, AL_GAIN, 1.0f);
 }
 
 void Sound::cleanUp()

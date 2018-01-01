@@ -5,6 +5,7 @@
 		<IA title = "SpeedBoostToggle" keyboard = "x" gamepad = "gamepad_ls"/>
 		
 		<IA title = "SwitchCam" keyboard = "c" gamepad = "gamepad_lb"/>
+		<IA title = "Mute" keyboard = "x" gamepad = "gamepad_b"/>
 		<IA title = "Restart" keyboard = "r" gamepad = "gamepad_back"/>
 	</Actions>
 	<Axis>

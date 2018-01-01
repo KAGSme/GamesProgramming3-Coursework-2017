@@ -134,7 +134,6 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="CommonXml.h" />
     <ClInclude Include="Sound.h" />
-    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DefRenderer.h" />
     <ClInclude Include="Enemy.h" />
@@ -176,7 +175,6 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="CommonXml.cpp" />
     <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DefRenderer.cpp" />
     <ClCompile Include="Enemy.cpp" />

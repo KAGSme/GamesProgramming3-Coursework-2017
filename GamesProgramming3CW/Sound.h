@@ -9,6 +9,7 @@ cSound.h
 
 // OpenGL Headers
 #include "Common.h"
+#include "Input.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -32,6 +33,7 @@ private:
 	ALuint       m_OALBuffer;         // Buffer
 	ALboolean    m_OALbEAX;			  // for EAX 2.0 support
 	ALboolean    m_alLoop;			  //loop
+	bool _muted = false;
 
 	struct FMTCHUNK {
 		short format;
@@ -53,6 +55,7 @@ public:
 	void loadWAVFile(LPCSTR filename);
 	void playAudio( ALboolean sndLoop);
 	void stopAudio();
+	void Mute(bool state);
 	void cleanUp();
 	int GetState();
 };
