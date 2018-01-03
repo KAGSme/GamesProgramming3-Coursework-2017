@@ -23,7 +23,7 @@ Light::Light(vec4 color, E_LightState state = E_LightState::POINT)
 
 		glGenTextures(1, &depthMap);
 		glBindTexture(GL_TEXTURE_2D, depthMap);  
-
+		//from learnopengl.com shadow mapping tutorial
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -79,6 +79,7 @@ void Light::OnBegin()
 {
 	if (_state == E_LightState::POINT || _state == E_LightState::SPOT)
 	{
+		//add light textures
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(0));
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(1));
 		pGameObject->GetRenderer()->AddTexture(DefRenderer::GetFrameTexture(2));

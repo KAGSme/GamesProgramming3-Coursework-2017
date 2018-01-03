@@ -296,9 +296,9 @@ void Game::LoadResources()
 	resourceManager->AddModel("skyModel", skyModel);
 
 	//======================== SCENEMANAGEMENT  ====================
-	sceneManager->LoadSceneDirectories();
-	sceneManager->LoadScene(0, currentScene);
-	currentScene->Begin();
+	sceneManager->LoadSceneDirectories();// load directories to all possible scenes
+	sceneManager->LoadScene(0, currentScene); // always load scene 0
+	currentScene->Begin();//initialise the scene
 }
 
 void Game::ReleaseResources()
@@ -309,7 +309,7 @@ void Game::ReleaseResources()
 
 void Game::Update(float deltaTime)
 {
-	currentScene->Update(deltaTime);
+	currentScene->Update(deltaTime);//update all gameobjects
 	DefRenderer::SetMainLightDir(dynamic_cast<Light*>(currentScene->GetMainDirLight()->GetComponent("Light"))->GetLightDirection());
 	DefRenderer::SetMainLightColor(vec3(dynamic_cast<Light*>(currentScene->GetMainDirLight()->GetComponent("Light"))->GetColor()));
 	  
@@ -318,7 +318,7 @@ void Game::Update(float deltaTime)
 		debugMode = !debugMode;
 	}
 	if (Input::GetKeyDown(SDLK_F2)) 
-		negMode = !negMode;
+		negMode = !negMode; //post process test mode
 
 	fpsCounter++;
 	if ((fpsTimer += deltaTime) > 1)
@@ -327,7 +327,7 @@ void Game::Update(float deltaTime)
 		fpsCounter = fpsTimer = 0;
 	}
 
-	if (debugMode)
+	if (debugMode)//show performance stats
 	{
 		char fpsBuffer[30];
 		sprintf_s(fpsBuffer, "FPS: %d", fpsDisplay);
@@ -376,7 +376,7 @@ void Game::Render(float deltaTime)
  	drawCalls = verticesRendered = 0;
 
 	Camera *camera = currentScene->GetSceneCamera();
-	camera->Recalculate();
+	camera->Recalculate();//re update view and proj matrix if different
 	currentScene->VisibilityCheck();
 	currentScene->Sort(Comparer);
 

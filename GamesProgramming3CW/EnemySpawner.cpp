@@ -34,9 +34,9 @@ void EnemySpawner::Update(float deltaTime)
 {
 	Sound* sound = Game::GetResourceManager()->GetSound("Slammin.wav");
 	if (sound->GetState() == AL_STOPPED)
-		sound->playAudio(AL_NONE);
+		sound->playAudio(AL_NONE);//keep replaying audio if it finished
 
-	if (!pGameObject->GetActive())
+	if (!pGameObject->GetActive())//presumed gameover
 	{
 		Game::GetResourceManager()->GetFont("Regensburg.ttf")->Render("Game Over!!! Restart By pressing R", { 100, (int)SCREEN_H/2, 650, 50 });
 		string score = "Score: " + to_string(_pc->GetScore());
@@ -64,7 +64,7 @@ void EnemySpawner::Update(float deltaTime)
 	//increase enemies after every 10 that get spawned
 	_spawnAmount = clamp(_spawned / 10, 1, (int)_spawnPositions.size() - 2); 
 }
-
+//create equally spaced spawn positions
 void EnemySpawner::GenerateSpawnPositions()
 {
 	int maxSpawnPositions = ((_rightBound-4) - (_leftBound+4)) / 8;//8 is the diameter of the enemy cars (see enemy.cpp)
@@ -83,10 +83,12 @@ void EnemySpawner::SpawnEnemy(int amount)
 		vector<int> rShuffle;
 		for (int i = 0; i < _spawnPositions.size(); i++)
 		{
+			//fills with unique numbers from 0 to spawn position
 			rShuffle.push_back(i);
 		}
 		for (int i = rShuffle.size(); i > 0; --i)
 		{
+			//shuffle numbers
 			int temp = rShuffle.at(i - 1);
 			int j = rand() % i;
 			rShuffle.at(i - 1) = rShuffle.at(j);
@@ -126,7 +128,7 @@ void EnemySpawner::SpawnEnemy(int amount)
 			_spawned++;
 		}
 	}
-	else
+	else //~20% chance to see other enemy type
 	{
 		Renderer* renderer = new Renderer();
 		ShaderProgram *shader = Game::GetResourceManager()->GetShader("diffuseNormalSpecMap");

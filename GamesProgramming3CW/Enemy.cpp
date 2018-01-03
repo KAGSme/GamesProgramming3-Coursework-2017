@@ -8,6 +8,7 @@ Enemy::Enemy()
 {
 	speed = 30.f;
 	life = 20.f;
+	hitSound = "hit1.wav";
 }
 
 
@@ -40,7 +41,7 @@ void Enemy::OnOverlap(GameObject * other)
 	PlayerCar* pc = dynamic_cast<PlayerCar*>(other->GetComponent("PlayerCar"));
 	if (pc != NULL)
 	{
-		Game::GetResourceManager()->GetSound("hit1.wav")->playAudio(AL_NONE);
+		Game::GetResourceManager()->GetSound(hitSound)->playAudio(AL_NONE);
 		pGameObject->Destroy();
 		pc->AddHealth(-1);
 	}

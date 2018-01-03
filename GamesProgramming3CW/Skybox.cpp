@@ -56,11 +56,12 @@ void Skybox::Update(float deltaTime)
 		//now, the color
 		vec3 dayColor(1.f, 1.f, 0.984f); //slight white
 		vec3 nightColor(0.137f, 0.152f, 0.301f); //slight blue
-		vec3 dayambient(0.65f, 0.65f, 0.8f);
-		vec3 nightambient(0.05f, 0.05f, 0.05f);
-		vec3 dayFog(0.415f, 0.670f, 0.764f);
-		vec3 nightFog(0,0,0);
+		vec3 dayambient(0.65f, 0.65f, 0.8f);// slight blue
+		vec3 nightambient(0.05f, 0.05f, 0.05f);// almost black
+		vec3 dayFog(0.415f, 0.670f, 0.764f);// slight blue
+		vec3 nightFog(0,0,0);// black
 
+		//mix between day and night colors
 		if (nightTime)
 		{ 
 			Game::GetCurrentScene()->GetMainDirLight()->GetLight()->SetColor(vec4(mix(nightColor, dayColor, k), 1));

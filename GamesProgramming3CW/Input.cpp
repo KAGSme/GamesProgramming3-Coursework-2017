@@ -103,7 +103,7 @@ XMLError Input::LoadInput()
 		attributeInputs = split(temp, ',');
 		for (int i = 0 ; i < attributeInputs.size(); i++) 
 		{
-			if (attributeInputs.at(i).length() > 1)
+			if (attributeInputs.at(i).length() > 1)//must not be keyboard character
 			{
 				tempInputAction->keys.push_back(CommonXml::GetSpecialKeyFromInputXml(attributeInputs.at(i)));
 			}
@@ -257,7 +257,7 @@ void Input::UpdateInputActions()
 			if (GetKey(key)) iter.state = true;
 		}
 		if (iter.state != iter.stateOld)
-			iter.InputActionChange(iter.state);
+			iter.InputActionChange(iter.state); // only call event if the state has changed 
 	}
 }
 
@@ -303,7 +303,7 @@ void Input::UpdateInputAxis()
 			else if (GetGamepadAxis(gamePadAxis) < Neg && GetGamepadAxis(gamePadAxis) < -0.1) Neg = GetGamepadAxis(gamePadAxis);
 		}
 
-		iter.state = Pos + Neg;
+		iter.state = Pos + Neg; // should return zero if a digital positive button and digital negative button is pushed
 		if (iter.state != 0)
 		{
 			iter.InputAxisChange(iter.state);

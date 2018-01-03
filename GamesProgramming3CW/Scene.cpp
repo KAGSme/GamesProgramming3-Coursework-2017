@@ -187,12 +187,13 @@ void Scene::ReleaseResources()
 
 void Scene::Begin()
 {
-	AddNewGameObjects();
+	AddNewGameObjects();//add new gameobjects to gameobjects vector
 	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
 		if (!_skybox)
 		{
+			//remove skybox from gameobjects and track it's usage separately
 			if ((*iter)->GetComponent("Skybox"))
 			{
 				_skybox = (*iter);
@@ -210,14 +211,16 @@ void Scene::Update(float deltaTime)
 	{
 		_skybox->Update(deltaTime);
 	}
-
+	
 	int i = 0;
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
+		//delete gameobject if it's set to be destroyed
 		if ((*iter)->IsPendingDestroy())
 		{
 			cout << "DESTROYED: " << (*iter)->GetName() << endl;
 			delete (*iter);
+			//make sure iterators position is not messed up when decreasing vector
 			iter = gameObjects.erase(iter);
 			if (i >= gameObjects.size()) iter = gameObjects.end()-1;
 		}
@@ -241,7 +244,7 @@ void Scene::Update(float deltaTime)
 		}
 	}
 
-	AddNewGameObjects();
+	AddNewGameObjects();//add newly created gameobjects 
 }
 
 void Scene::VisibilityCheck()
@@ -289,6 +292,7 @@ void Scene::Render(Camera* camera)
 {
 	if (_skybox)
 	{
+		//disable depth testing for skybox
 		glDisable(GL_DEPTH_TEST);
 		glDepthMask(GL_FALSE);
 		_skybox->Render(camera);
@@ -354,6 +358,7 @@ void Scene::SetMainDirLight(GameObject * dirL)
 
 GameObject * Scene::GetGameObject(string name)
 {
+	//find gameobject by it's name
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
 		if ((*iter)->GetName() == name)

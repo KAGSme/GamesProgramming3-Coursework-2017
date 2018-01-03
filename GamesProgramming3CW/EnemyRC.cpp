@@ -8,6 +8,7 @@ EnemyRC::EnemyRC(float zLength, float zSpeed)
 	life = 20.f;
 	_zLength = zLength;
 	_zSpeed = zSpeed;
+	hitSound = "hit2.wav";
 }
 
 
@@ -21,6 +22,7 @@ void EnemyRC::Update(float deltaTime)
 	vec3 directtion = pGameObject->GetTransform()->GetRight();
 	pGameObject->GetTransform()->AddPosition(speed * directtion * deltaTime);
 
+	//move the car by sine wave
 	vec3 pos = pGameObject->GetTransform()->GetPosition();
 	float curve = sinf(pGameObject->GetAliveTime() * _zSpeed);
 	float newZ = curve * (_zLength / 2);

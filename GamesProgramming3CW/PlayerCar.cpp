@@ -17,6 +17,7 @@ PlayerCar::PlayerCar()
 	leftBound = -40; //keep negative as it's to the left of player (in world)
 	rightBound = 40; //keep positive as it's to the right of player (in world)
 
+	//create follow cameras for car
 	GameObject* camGO;
 	camGO = Game::GetCurrentScene()->AddGameObject("FollowCamFirst", vec3(0), vec3(0, -90, 0), vec3(1));
 	_FirstPersonCam = new CameraComponent();
@@ -73,19 +74,19 @@ void PlayerCar::Update(float deltaTime)
 		velocity.x = clamp(velocity.x, -maxStrafeVel, maxStrafeVel);
 		velocity.z = clamp(velocity.z, -maxStrafeVel, maxStrafeVel);
 
-		//cout << velocity.x << " " << velocity.z << endl;
-
 		pGameObject->GetTransform()->AddPosition(velocity);
-
+		//gracefully slow down the car based on a friction value
 		InterpVec3To(velocity, vec3(0, 0, 0), friction, deltaTime); 
 		accel = vec3(0);
 		strafeAccel = 0;
-
+		//stop car from leaving play area
 		float radius = pGameObject->GetCollider()->radius;
 		pGameObject->GetTransform()->SetPosition(vec3(
 			pGameObject->GetTransform()->GetPosition().x, 
 			pGameObject->GetTransform()->GetPosition().y, 
 			clamp(pGameObject->GetTransform()->GetPosition().z,leftBound+radius,rightBound-radius)));
+
+		//printVec3(pGameObject->GetTransform()->GetPosition());
 
 		_timeScore += deltaTime * 6;
 		_finalScore = int(_timeScore) * 50 + _otherScore;
@@ -110,6 +111,7 @@ void PlayerCar::AddHealth(int amount)
 
 	if (health <= 0)
 	{
+		//play correct death effects, stop engine audio
 		cout << "Player Death" << endl;
 		Game::GetResourceManager()->GetSound("carEngine.wav")->stopAudio();
 		Game::GetResourceManager()->GetSound("Death.wav")->playAudio(AL_NONE);
@@ -124,6 +126,7 @@ void PlayerCar::Reset()
 
 void PlayerCar::switchCam(bool state)
 {
+	//switch between 3rd and first person camera
 	if (state && pGameObject->GetActive() && !debug)
 	{
 		firstPerson = !firstPerson;
@@ -137,6 +140,7 @@ void PlayerCar::switchCam(bool state)
 
 void PlayerCar::FreeCam(bool state)
 {
+	//move to free camera
 	if (state)
 	{
 		debug = !debug;

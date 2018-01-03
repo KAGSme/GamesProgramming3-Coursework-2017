@@ -15,7 +15,7 @@ mat4 Transform::UpdateTransformMatrix()
 	_isDirty = false;
 	return _transformMatrix;
 }
-
+// adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/ 
 vec3 Transform::GetRotationEuler()
 {
 	float yaw, pitch, roll;
@@ -55,7 +55,7 @@ void Transform::SetRotationEuler(vec3 newRotation)
 
 	_isDirty = true;
 }
-
+//still possible gimble lock sometimes, maybe
 void Transform::AddRotationEuler(vec3 deltaRotation)
 {
 	quat delta = quat(radians(deltaRotation));
@@ -71,7 +71,8 @@ void Transform::AddRotation(quat deltaRotation)
 
 	_isDirty = true;
 }
-
+//from http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
+//never actually used anywhere in the game, was mainly for testing
 quat Transform::RotationBetweenVectors(vec3 start, vec3 dest) {
 	start = normalize(start);
 	dest = normalize(dest);

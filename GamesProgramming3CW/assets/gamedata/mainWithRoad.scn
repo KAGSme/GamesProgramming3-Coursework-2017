@@ -91,7 +91,7 @@
 		<GameObject name="PlayerCar" hasRenderer="true" texture="Car/RaceC_red_diffuse.png,Car/RaceC_red_normal.png,Car/RaceC_red_specular.png" model="RaceC.FBX" shader="diffuseNormalSpecMap" 
 			posx="0" posy="0" posz="0" rotx="-90" roty="0" rotz="0" 
 			scalex="3" scaley="3" scalez="3">
-			<Material diffuse="0.5,0.8,0,1" specularPower="62" specularIntensity="1"/>
+			<Material diffuse="0.5,0.8,0,1" specularPower="74" specularIntensity="1"/>
 			<ComponentList>
 				<Component ID="PlayerCar"/>
 			</ComponentList>

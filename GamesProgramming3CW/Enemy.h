@@ -9,6 +9,7 @@ public:
 	~Enemy();
 	float speed;
 	float life = 10.f;
+	string hitSound;
 
 	void OnBegin();
 	void Update(float deltaTime);

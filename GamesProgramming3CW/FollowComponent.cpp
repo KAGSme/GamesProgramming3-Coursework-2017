@@ -20,6 +20,7 @@ FollowComponent::~FollowComponent()
 
 void FollowComponent::Update(float deltaTime)
 {
+	//simply keep gameobject in same relative world position to the other gameobject
 	if (!_followGo) return;
 	vec3 pos = _followGo->GetTransform()->GetPosition() + _offsetPos;
 	pGameObject->GetTransform()->SetPosition(pos);

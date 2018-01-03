@@ -59,7 +59,7 @@ const map<string, SDL_Keycode> specialKeyStrings =
 	{ "r_ctrl", SDLK_RCTRL },
 	{ "space", SDLK_SPACE },
 	{ "l_alt", SDLK_LALT },
-	{ "l_alt", SDLK_RALT },
+	{ "r_alt", SDLK_RALT },
 };
 
 int CommonXml::GetSpecialKeyFromInputXml(string xmlInput)
