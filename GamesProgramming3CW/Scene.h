@@ -56,6 +56,7 @@ public:
 	void ReleaseResources();
 	void Begin();
 	void Update(float deltaTime);
+	void RemoveDeadGameObjects();
 	void VisibilityCheck();
 	void Sort(bool(*comparer)(GameObject *a, GameObject *b));
 	void Render(Camera* camera);

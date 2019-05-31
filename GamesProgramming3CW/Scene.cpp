@@ -207,27 +207,6 @@ void Scene::Begin()
 
 void Scene::Update(float deltaTime)
 {
-	if (_skybox)
-	{
-		_skybox->Update(deltaTime);
-	}
-	
-	int i = 0;
-	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
-	{
-		//delete gameobject if it's set to be destroyed
-		if ((*iter)->IsPendingDestroy())
-		{
-			cout << "DESTROYED: " << (*iter)->GetName() << endl;
-			delete (*iter);
-			//make sure iterators position is not messed up when decreasing vector
-			iter = gameObjects.erase(iter);
-			if (i >= gameObjects.size()) iter = gameObjects.end()-1;
-		}
-		else (*iter)->Update(deltaTime);
-		i++;
-	}
-
 	//Sphere Collisions
 	for (int i = 0; i != gameObjects.size(); i++)
 	{
@@ -244,7 +223,33 @@ void Scene::Update(float deltaTime)
 		}
 	}
 
+	if (_skybox)
+	{
+		_skybox->Update(deltaTime);
+	}
+
+	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
+	{
+		(*iter)->Update(deltaTime);
+	}
+
+	RemoveDeadGameObjects(); //remove dead game objects
 	AddNewGameObjects();//add newly created gameobjects 
+}
+
+void Scene::RemoveDeadGameObjects()
+{
+	auto iter = gameObjects.begin();
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if ((*iter)->IsPendingDestroy())
+		{
+			cout << "DESTROYED: " << (*iter)->GetName() << endl;
+			//make sure iterators position is not messed up when decreasing vector
+			iter = gameObjects.erase(iter);
+		}
+		else iter++;
+	}
 }
 
 void Scene::VisibilityCheck()
